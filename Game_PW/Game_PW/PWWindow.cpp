@@ -43,6 +43,7 @@ PWWindow::PWWindow(wxFrame *parent) : wxWindow(parent, wxID_ANY) {
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
 	creditbutton = new wxBitmap(image4);
 	button4 = new wxBitmapButton(this, 1004, *creditbutton, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
+	button4->SetBitmapCurrent(wxBitmap(image3));
 
 	this->LoadMainBitmap();
 }
