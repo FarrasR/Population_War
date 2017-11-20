@@ -1,9 +1,10 @@
 #pragma once 
 #include "wx\wx.h" 
+#include "PWFrame.h"
 
 class PWWindow : public wxWindow {
 public:
-	PWWindow(wxFrame *parent);
+	PWWindow(PWFrame *parent);
 	~PWWindow();
 	void OnPaint(wxPaintEvent &event);
 

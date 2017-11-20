@@ -4,8 +4,12 @@
 class PWWindow;
 
 class PWFrame : public wxFrame {
-private:
-	PWWindow *window;
 public:
 	PWFrame(const wxString &title);
+
+
+
+
+private:
+	PWWindow *window;
 };
