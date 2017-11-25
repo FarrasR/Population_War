@@ -22,9 +22,15 @@ PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
 	button2 = new wxBitmapButton(this, 1002, *settingbutton, wxPoint(200, 530), wxDefaultSize, wxBORDER_NONE);
 	button3 = new wxBitmapButton(this, 1003, *htpbutton, wxPoint(400, 530), wxDefaultSize, wxBORDER_NONE);
 	button4 = new wxBitmapButton(this, 1004, *creditbutton, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
-	button4->SetBitmapCurrent(*settingbutton);
-
+	button5 = new wxBitmapButton(this, 1005, *playbuttonglow, wxPoint(380, 420), wxDefaultSize, wxBORDER_NONE);
+	button6 = new wxBitmapButton(this, 1006, *settingbuttonglow, wxPoint(200, 530), wxDefaultSize, wxBORDER_NONE);
+	button7 = new wxBitmapButton(this, 1007, *htpbuttonglow, wxPoint(400, 530), wxDefaultSize, wxBORDER_NONE);
+	button8 = new wxBitmapButton(this, 1008, *creditbuttonglow, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
 	
+	button4->SetBitmapCurrent(*creditbuttonglow);
+	button3->SetBitmapCurrent(*htpbuttonglow);
+	button2->SetBitmapCurrent(*settingbuttonglow);
+	button1->SetBitmapCurrent(*playbuttonglow);
 }
 
 PWWindow::~PWWindow() {
@@ -49,6 +55,10 @@ void PWWindow::LoadMainBitmap() {
 	wxString fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\settext.jpg");
 	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\htptext.jpg");
 	wxString fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\cretext.jpg");
+	wxString fileLocation7 = wxFileName(fileLocation).GetPath() + wxT("\\cretextglow.jpg");
+	wxString fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\htptextglow.jpg");
+	wxString fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\settextglow.jpg");
+	wxString fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\playglow.jpg");
 	
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
@@ -56,13 +66,22 @@ void PWWindow::LoadMainBitmap() {
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
 	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
 	wxImage image6(fileLocation6, wxBITMAP_TYPE_JPEG);
+	wxImage image7(fileLocation7, wxBITMAP_TYPE_JPEG);
+	wxImage image8(fileLocation8, wxBITMAP_TYPE_JPEG);
+	wxImage image9(fileLocation9, wxBITMAP_TYPE_JPEG);
+	wxImage image10(fileLocation10, wxBITMAP_TYPE_JPEG);
+
 
 	logoBitmap = new wxBitmap(image1.Scale(350, 350));
 	textpwBitmap = new wxBitmap(image2);
 	playbutton = new wxBitmap(image3);
+	playbuttonglow = new wxBitmap(image10);
 	settingbutton = new wxBitmap(image4);
+	settingbuttonglow = new wxBitmap(image9);
 	htpbutton = new wxBitmap(image5);
+	htpbuttonglow = new wxBitmap(image8);
 	creditbutton = new wxBitmap(image6);
+	creditbuttonglow = new wxBitmap(image7);
 
 }
 
