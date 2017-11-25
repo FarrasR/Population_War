@@ -19,13 +19,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CreditWindow.cpp" />
+    <ClCompile Include="HTPWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PWFrame.cpp" />
     <ClCompile Include="PWWindow.cpp" />
+    <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="SettingWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CreditWindow.h" />
+    <ClInclude Include="HTPWindow.h" />
     <ClInclude Include="PWFrame.h" />
     <ClInclude Include="PWWindow.h" />
+    <ClInclude Include="Setting.h" />
+    <ClInclude Include="SettingWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

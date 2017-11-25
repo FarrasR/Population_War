@@ -34,6 +34,8 @@ private:
 	wxBitmapButton *button7;
 	wxBitmapButton *button8;
 
+	PWFrame *parent;
+
 	void LoadMainBitmap();
 	DECLARE_EVENT_TABLE()
 };
