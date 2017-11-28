@@ -8,5 +8,6 @@ public:
 	bool kill;
 	bool sacrifice;
 	bool convert;
+	bool relocate;
 };
 
