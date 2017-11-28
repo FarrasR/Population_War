@@ -17,8 +17,14 @@ private:
 	PWFrame *parent;
 	wxButton *nextbutton;
 	wxButton *Previousbutton;
-	wxButton *mainmenu;
-	DECLARE_EVENT_TABLE()
+	wxBitmapButton *back;
+
+	wxBitmap *mainmenu;
+	wxBitmap *mainmenuglow;
+	wxBitmap *howtoplay;
+
 	int page;
+	void LoadBitmap();
+	DECLARE_EVENT_TABLE()
 };
 

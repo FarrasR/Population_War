@@ -10,6 +10,11 @@ PWFrame::PWFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, title)
 	this->InitComponents();
 }
 
+PWFrame::~PWFrame()
+{
+	delete setting;
+}
+
 void PWFrame::InitComponents()
 {
 	boxSizer = new wxBoxSizer(wxVERTICAL);

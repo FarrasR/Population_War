@@ -26,6 +26,11 @@ SettingWindow::SettingWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY)
 	buttonsacrifice = new wxBitmapButton(this, 2003, *checkboxfalse, wxPoint(360, 315), wxDefaultSize, wxBORDER_NONE);
 	buttonrelocate = new wxBitmapButton(this, 2004, *checkboxfalse, wxPoint(360, 365), wxDefaultSize, wxBORDER_NONE);
 	
+	buttonmainmenu = new wxBitmapButton(this, 2005, *mainmenu, wxPoint(550, 400), wxDefaultSize, wxBORDER_NONE);
+
+	buttonmainmenu->SetBitmapCurrent(*mainmenuglow);
+
+
 	this->CheckSetting();
 }
 
@@ -36,10 +41,13 @@ SettingWindow::~SettingWindow()
 	delete checkboxfalse;
 	delete checkboxtrue;
 	delete logo;
+	delete mainmenu;
+	delete mainmenuglow;
 	delete buttonkill;
 	delete buttonconvert;
 	delete buttonsacrifice;
 	delete buttonrelocate;
+	delete buttonmainmenu;
 }
 
 void SettingWindow::OnPaint(wxPaintEvent & event)
@@ -91,17 +99,22 @@ void SettingWindow::LoadBitmap()
 	wxString fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\ceklisno.jpg");
 	wxString fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\ceklisyes.jpg");
 	wxString fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\logo.jpg");
+	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\mainmenu.jpg");
+	wxString fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\mainmenuglow.jpg");
 
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
 	wxImage image3(fileLocation3, wxBITMAP_TYPE_JPEG);
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
+	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
+	wxImage image6(fileLocation6, wxBITMAP_TYPE_JPEG);
 
 	abilitybox = new wxBitmap(image1);
 	checkboxfalse = new wxBitmap(image2);
 	checkboxtrue = new wxBitmap(image3);
 	logo = new wxBitmap(image4.Scale(300, 300));
-
+	mainmenu = new wxBitmap(image5);
+	mainmenuglow = new wxBitmap(image6);
 }
 
 void SettingWindow::CheckSetting()

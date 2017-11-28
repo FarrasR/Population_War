@@ -23,10 +23,6 @@ PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
 	button2 = new wxBitmapButton(this, 1002, *settingbutton, wxPoint(200, 530), wxDefaultSize, wxBORDER_NONE);
 	button3 = new wxBitmapButton(this, 1003, *htpbutton, wxPoint(400, 530), wxDefaultSize, wxBORDER_NONE);
 	button4 = new wxBitmapButton(this, 1004, *creditbutton, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
-	//button5 = new wxBitmapButton(this, 1005, *playbuttonglow, wxPoint(380, 420), wxDefaultSize, wxBORDER_NONE);
-	//button6 = new wxBitmapButton(this, 1006, *settingbuttonglow, wxPoint(200, 530), wxDefaultSize, wxBORDER_NONE);
-	//button7 = new wxBitmapButton(this, 1007, *htpbuttonglow, wxPoint(400, 530), wxDefaultSize, wxBORDER_NONE);
-	//button8 = new wxBitmapButton(this, 1008, *creditbuttonglow, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
 	
 	button4->SetBitmapCurrent(*creditbuttonglow);
 	button3->SetBitmapCurrent(*htpbuttonglow);
@@ -38,9 +34,14 @@ PWWindow::~PWWindow() {
 	delete logoBitmap;
 	delete textpwBitmap;
 	delete playbutton;
-	delete htpbutton;
 	delete settingbutton;
+	delete htpbutton;
 	delete creditbutton;
+	delete playbuttonglow;
+	delete settingbuttonglow;
+	delete htpbuttonglow;
+	delete creditbuttonglow;
+
 	delete button1;
 	delete button2;
 	delete button3;
@@ -87,11 +88,9 @@ void PWWindow::LoadMainBitmap() {
 }
 
 void PWWindow::OnPaint(wxPaintEvent &event) {
-	wxPaintDC pdc1(this), pdc2(this);
-	if (logoBitmap != nullptr)
-		pdc1.DrawBitmap(*logoBitmap, wxPoint(325, 10), true);
-	if (logoBitmap != nullptr)
-		pdc2.DrawBitmap(*textpwBitmap, wxPoint(200, 330), true);
+	wxPaintDC pdc(this);
+	pdc.DrawBitmap(*logoBitmap, wxPoint(325, 10), true);
+	pdc.DrawBitmap(*textpwBitmap, wxPoint(200, 330), true);
 }
 
 void PWWindow::ClickPlay(wxCommandEvent & event)

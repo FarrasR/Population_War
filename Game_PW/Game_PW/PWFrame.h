@@ -9,7 +9,7 @@ class CreditWindow;
 class PWFrame : public wxFrame {
 public:
 	PWFrame(const wxString &title);
-
+	~PWFrame();
 	Setting *setting;
 	void InitComponents();
 	void ShowMainWindow();

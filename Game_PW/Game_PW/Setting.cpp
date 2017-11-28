@@ -13,4 +13,5 @@ Setting::Setting()
 
 Setting::~Setting()
 {
+
 }

@@ -24,12 +24,15 @@ private:
 	wxBitmap *checkboxfalse = nullptr;
 	wxBitmap *checkboxtrue = nullptr;
 	wxBitmap *logo = nullptr;
+	wxBitmap *mainmenu = nullptr;
+	wxBitmap *mainmenuglow = nullptr;
 
 
 	wxBitmapButton *buttonkill;
 	wxBitmapButton *buttonconvert;
 	wxBitmapButton *buttonsacrifice;
 	wxBitmapButton *buttonrelocate;
+	wxBitmapButton *buttonmainmenu;
 
 	void LoadBitmap();
 	void CheckSetting();

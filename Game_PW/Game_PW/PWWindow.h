@@ -29,10 +29,6 @@ private:
 	wxBitmapButton *button2;
 	wxBitmapButton *button3;
 	wxBitmapButton *button4;
-	wxBitmapButton *button5;
-	wxBitmapButton *button6;
-	wxBitmapButton *button7;
-	wxBitmapButton *button8;
 
 	PWFrame *parent;
 
