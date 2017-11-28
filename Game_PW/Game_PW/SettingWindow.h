@@ -8,18 +8,20 @@ public:
 	SettingWindow(PWFrame *parent);
 	~SettingWindow();
 
+	void OnPaint(wxPaintEvent &event);
+
 	void EnableKill(wxCommandEvent& event);
 	void EnableSacrifice(wxCommandEvent& event);
 	void BackToMainMenu(wxCommandEvent &event);
 
-
-
 private:
 	PWFrame *parent;
-	wxCheckBox *killbutton;
-	wxCheckBox *sacrificebutton;
-	wxCheckBox *convertbutton;
-	wxButton *button4;
+
+	wxBitmap *abilitybox = nullptr;
+	wxBitmap *checkboxfalse = nullptr;
+	wxBitmap *checkboxtrue = nullptr;
+
+	void LoadBitmap();
 	DECLARE_EVENT_TABLE()
 };
 
