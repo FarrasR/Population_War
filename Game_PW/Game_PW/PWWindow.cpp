@@ -100,12 +100,15 @@ void PWWindow::ClickPlay(wxCommandEvent & event)
 
 void PWWindow::ClickSetting(wxCommandEvent & event)
 {
+	parent->ShowSettingWindow();
 }
 
 void PWWindow::ClickHTP(wxCommandEvent & event)
 {
+	parent->ShowHTPWindow();
 }
 
 void PWWindow::ClickCredit(wxCommandEvent & event)
 {
+	parent->ShowCreditWindow();
 }

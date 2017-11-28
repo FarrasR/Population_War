@@ -11,12 +11,18 @@ public:
 	PWFrame(const wxString &title);
 
 	Setting *setting;
-
-
+	void InitComponents();
+	void ShowMainWindow();
+	void ShowSettingWindow();
+	void ShowHTPWindow();
+	void ShowCreditWindow();
 
 private:
 	PWWindow *mainwindow;
 	SettingWindow *settingwindow;
 	HTPWindow *howtoplaywindow;
 	CreditWindow *creditwindow;
+
+	wxBoxSizer* boxSizer;
+	void fitwindowSize();
 };

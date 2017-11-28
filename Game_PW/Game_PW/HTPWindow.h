@@ -10,12 +10,14 @@ public:
 	void OnPaint(wxPaintEvent &event);
 	void NextPage(wxCommandEvent &event);
 	void PreviousPage(wxCommandEvent &event);
+	void BackToMainMenu(wxCommandEvent &event);
 	void CheckPage();
 
 private:
 	PWFrame *parent;
 	wxButton *nextbutton;
 	wxButton *Previousbutton;
+	wxButton *mainmenu;
 	DECLARE_EVENT_TABLE()
 	int page;
 };

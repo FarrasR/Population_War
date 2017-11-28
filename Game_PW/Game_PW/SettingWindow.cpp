@@ -44,4 +44,6 @@ void SettingWindow::BackToMainMenu(wxCommandEvent & event)
 	parent->setting->kill = killbutton->GetValue();
 	parent->setting->sacrifice = sacrificebutton->GetValue();
 	parent->setting->convert = convertbutton->GetValue();
+
+	parent->ShowMainWindow();
 }
