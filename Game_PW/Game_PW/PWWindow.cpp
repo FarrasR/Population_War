@@ -93,8 +93,8 @@ void PWWindow::OnPaint(wxPaintEvent &event) {
 	pdc.DrawBitmap(*textpwBitmap, wxPoint(200, 330), true);
 }
 
-void PWWindow::ClickPlay(wxCommandEvent & event)
-{
+void PWWindow::ClickPlay(wxCommandEvent & event){
+	parent->ShowBoardWindow();
 }
 
 void PWWindow::ClickSetting(wxCommandEvent & event)

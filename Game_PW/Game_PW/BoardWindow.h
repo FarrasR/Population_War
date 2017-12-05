@@ -13,7 +13,12 @@ public:
 private:
 	PWFrame *parent;
 
+	wxBitmap *mainmenu = nullptr;
+	wxBitmap *mainmenuglow = nullptr;
 	wxBitmap *board = nullptr;
+	wxBitmap *logo = nullptr;
+
+	wxBitmapButton *buttonmainmenu;
 
 	void LoadBitmap();
 	DECLARE_EVENT_TABLE()
