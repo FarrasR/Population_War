@@ -15,15 +15,20 @@ public:
 
 private:
 	PWFrame *parent;
-	wxButton *nextbutton;
-	wxButton *Previousbutton;
-	wxBitmapButton *back;
 
 	wxBitmap *mainmenu;
 	wxBitmap *mainmenuglow;
 	wxBitmap *howtoplay;
+	wxBitmap *scrollnext = nullptr;
+	wxBitmap *scrollnextglow = nullptr;
+	wxBitmap *scrollprev = nullptr;
+	wxBitmap *scrollprevglow = nullptr;
 
-	int page;
+	wxBitmapButton *back;
+	wxBitmapButton *scrollnextbutton;
+	wxBitmapButton *scrollprevbutton;
+
+	int page = 1;
 	void LoadBitmap();
 	DECLARE_EVENT_TABLE()
 };

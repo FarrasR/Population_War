@@ -18,12 +18,8 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	this->LoadBitmap();
 	this->parent = parent;
 
-
-
 	this->cell = new Cell(this,500,100);
 	this->cell->SetBitmapCurrent(*mainmenuglow);
-
-
 
 	buttonmainmenu = new wxBitmapButton(this, 4001, *mainmenu, wxPoint(28, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonmainmenu->SetBitmapCurrent(*mainmenuglow);
@@ -31,7 +27,6 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 
 
 BoardWindow::~BoardWindow(){
-
 	delete mainmenu;
 	delete mainmenuglow;
 	delete board;
@@ -58,7 +53,6 @@ void BoardWindow::Response(wxCommandEvent & event)
 
 	wxMessageOutputDebug().Printf("%d %d",temp->koorx,temp->koory);
 
-
 }
 
 
@@ -71,7 +65,7 @@ void BoardWindow::LoadBitmap(){
 	wxString fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\mainmenu.jpg");
 	wxString fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\mainmenuglow.jpg");
 	wxString fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\logo.jpg");
-	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\cellbirumati.jpg");
+	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\biruhitam.jpg");
 
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
