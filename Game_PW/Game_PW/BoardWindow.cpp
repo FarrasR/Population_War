@@ -27,6 +27,7 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 		for (int j = 0; j < 20; j++) {
 			Cell *yuhu;
 			yuhu = new Cell(this, (251 + 25 * i), (121 + 25 * j), i, j);
+			yuhu->Bind(wxEVT_BUTTON, &BoardWindow::Response, this);
 			arr_obj.Add(yuhu);
 		}
 	}

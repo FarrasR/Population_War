@@ -7,8 +7,8 @@ Cell::Cell(BoardWindow * window, int koorx, int koory, int x, int y)
 	this->koory = koory;
 	this->x = x;
 	this->y = y;
-	Create(parent, 4010, *parent->cellhitamhitam, wxPoint(this->koorx, this->koory), wxDefaultSize, wxBORDER_NONE);
-
+	Create(parent, wxID_ANY, *parent->cellhitamhitam, wxPoint(this->koorx, this->koory), wxDefaultSize, wxBORDER_NONE);
+	
 }
 
 
