@@ -5,7 +5,6 @@
 #include <wx/arrimpl.cpp>
 #include <wx/dynarray.h>
 
-WX_DEFINE_ARRAY(Cell *, Objectarray);
 
 BEGIN_EVENT_TABLE(BoardWindow, wxWindow)
 	EVT_PAINT(BoardWindow::OnPaint)
@@ -13,7 +12,6 @@ BEGIN_EVENT_TABLE(BoardWindow, wxWindow)
 	EVT_BUTTON(4010, BoardWindow::Response)
 END_EVENT_TABLE()
 
-Objectarray arr_obj;
 
 BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	this->SetBackgroundColour(wxColour(*wxBLACK));
@@ -24,11 +22,13 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	this->parent = parent;
 
 	for (int i = 0; i < 20; i++) {
+		vector<Cell*>temp2;
+		myboard.push_back(temp2);
 		for (int j = 0; j < 20; j++) {
 			Cell *yuhu;
 			yuhu = new Cell(this, (251 + 25 * i), (121 + 25 * j), i, j);
 			yuhu->Bind(wxEVT_BUTTON, &BoardWindow::Response, this);
-			arr_obj.Add(yuhu);
+			myboard[i].push_back(yuhu);
 		}
 	}
 
@@ -42,8 +42,8 @@ BoardWindow::~BoardWindow(){
 	delete mainmenuglow;
 	delete board;
 	delete logo;
-	delete cellhitamhitam;
-	delete cellbirubiru;
+	delete cell00;
+	delete cell11;
 	delete buttonmainmenu;
 }
 
@@ -59,22 +59,60 @@ void BoardWindow::BackToMainMenu(wxCommandEvent & event){
 
 void BoardWindow::Response(wxCommandEvent & event)
 {
-	wxMessageOutputDebug().Printf("hehe");
-
 	Cell *temp = wxDynamicCast(event.GetEventObject(), Cell);
 
-	wxMessageOutputDebug().Printf("%d %d",temp->ownership, temp->futureownership);
+	temp->Set_Current_Ownership(1);
+	temp->Set_Future_Ownership(1);
 
-	temp->ownership = 1;
-	temp->futureownership = 1;
-	wxMessageOutputDebug().Printf("%d %d %d %d", temp->x, temp->y,temp->ownership, temp->futureownership);
-	temp->setColor();
+	//().Printf("%d %d", temp->x,temp->y);
+	//wxMessageOutputDebug().Printf("cek %d %d", temp->Get_Ownership(), myboard[temp->x][temp->y]->Get_Ownership());
+
+	UpdateCells();
 }
 
 void BoardWindow::UpdateCells()
 {
-	for (unsigned int i = 0; i < arr_obj.GetCount(); i++)
-		arr_obj[i]->setColor();
+	for (int i = 0; i < myboard.size(); i++)
+	{
+		for (int j = 0; j < myboard[i].size(); j++)
+			myboard[i][j]->setColor();
+	}
+}
+
+int BoardWindow::Get_Cell_Ownership(Coordinates search)
+{
+	return myboard[search.x][search.y]->Get_Ownership();
+}
+
+int BoardWindow::Get_Future_Ownership(Coordinates search)
+{
+	return myboard[search.x][search.y]->Get_Future_Ownership();
+}
+
+Nearby BoardWindow::Get_Nearby_Cell(Coordinates search)
+{
+	int tempx[8] = { -1,0,1,-1,1,-1,0,1 };
+	int tempy[8] = { 1,1,1,0,0,-1,-1,-1 };
+	Nearby kol;
+	for (int i = 0; i < 8; i++)
+	{
+		if (search.x + tempx[i] < 20 && search.x + tempx[i] >= 0 && search.y + tempy[i] < 20 && search.y + tempy[i] >= 0)
+		{
+			Coordinates temp(search.x + tempx[i], search.y + tempy[i]);
+			kol.player[Get_Cell_Ownership(temp)]++;
+		}
+	}
+	return kol;
+}
+
+void BoardWindow::Set_Current_Cell(Coordinates target, int player)
+{
+	myboard[target.x][target.y]->Set_Current_Ownership(player);
+}
+
+void BoardWindow::Set_Future_Cell(Coordinates target, int player)
+{
+	myboard[target.x][target.y]->Set_Future_Ownership(player);
 }
 
 
@@ -101,8 +139,8 @@ void BoardWindow::LoadBitmap(){
 	logo = new wxBitmap(image4.Scale(200, 200));
 	mainmenu = new wxBitmap(image2.Scale(160, 60));
 	mainmenuglow = new wxBitmap(image3.Scale(160, 60));
-	cellhitamhitam = new wxBitmap(image5);
-	cellbirubiru = new wxBitmap(image6);
+	cell00 = new wxBitmap(image5);
+	cell11 = new wxBitmap(image6);
 }
 
 

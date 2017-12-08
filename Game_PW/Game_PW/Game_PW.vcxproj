@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="BoardWindow.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CellTools.cpp" />
     <ClCompile Include="CreditWindow.cpp" />
     <ClCompile Include="HTPWindow.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="BoardWindow.h" />
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellTools.h" />
     <ClInclude Include="CreditWindow.h" />
     <ClInclude Include="HTPWindow.h" />
     <ClInclude Include="PWFrame.h" />

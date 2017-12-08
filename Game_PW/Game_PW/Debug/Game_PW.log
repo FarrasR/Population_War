@@ -1,11 +1,9 @@
-﻿  SettingWindow.cpp
-  Setting.cpp
-  PWWindow.cpp
+﻿  BoardWindow.cpp
+e:\program that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(75): warning C4018: '<': signed/unsigned mismatch
+e:\program that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(77): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
   PWFrame.cpp
-  Main.cpp
-  HTPWindow.cpp
-  CreditWindow.cpp
   Cell.cpp
-  BoardWindow.cpp
   Generating Code...
   Game_PW.vcxproj -> E:\Program that might be useful\PBO\Population_War\Game_PW\Debug\Game_PW.exe
