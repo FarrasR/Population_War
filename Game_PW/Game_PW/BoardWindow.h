@@ -18,8 +18,9 @@ public:
 	~BoardWindow();
 	void OnPaint(wxPaintEvent &event);
 	void BackToMainMenu(wxCommandEvent &event);
-	void Response(wxCommandEvent &event);
+	void Response(wxCommandEvent &event);	//RESPONSE CUMA BUAT INPUT, DIPROSES SAMA FUNGSI LAIN!!!
 	void UpdateCells();
+
 
 
 	vector<vector <Cell*> >myboard;
@@ -29,15 +30,23 @@ public:
 	int Get_Future_Ownership(Coordinates search);
 	Nearby Get_Nearby_Cell(Coordinates search);
 
-
-
 	//set Ownership
 	void Set_Current_Cell(Coordinates target, int player);
 	void Set_Future_Cell(Coordinates target, int player);
+	
+
+
+	//Func
+	void FirstPhase(Cell* cari);
 
 
 	wxBitmap *cell00 = nullptr;
 	wxBitmap *cell11 = nullptr;
+	wxBitmap *cell22 = nullptr;
+	wxBitmap *cell01 = nullptr;
+	wxBitmap *cell02 = nullptr;
+	wxBitmap *cell10 = nullptr;
+	wxBitmap *cell20 = nullptr;
 
 
 
@@ -52,6 +61,11 @@ private:
 	
 	wxBitmapButton *buttonmainmenu;
 	wxBitmapButton *buttoncellcoba;
+
+
+	int Current_Player;
+	int Count;
+	int Total_Count;
 
 	void LoadBitmap();
 	DECLARE_EVENT_TABLE()

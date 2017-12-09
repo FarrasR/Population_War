@@ -48,6 +48,8 @@ void Cell::setColor()
 {
 	if (this->Current_Ownership == 0 && Future_Ownership == 0)this->SetBitmap(*parent->cell00);
 	else if (Current_Ownership == 1 && Future_Ownership == 1)this->SetBitmap(*parent->cell11);
+	else if (Current_Ownership == 2 && Future_Ownership == 2)this->SetBitmap(*parent->cell22);
+
 }
 
 

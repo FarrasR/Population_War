@@ -32,6 +32,8 @@ private:
 	//0=mati, 1=player1, 2=player2
 	int Current_Ownership;
 	int Future_Ownership;
+
+
 	BoardWindow *parent;
 };
 

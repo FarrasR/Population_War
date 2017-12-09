@@ -28,12 +28,18 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 			Cell *yuhu;
 			yuhu = new Cell(this, (251 + 25 * i), (121 + 25 * j), i, j);
 			yuhu->Bind(wxEVT_BUTTON, &BoardWindow::Response, this);
+
 			myboard[i].push_back(yuhu);
 		}
 	}
 
 	buttonmainmenu = new wxBitmapButton(this, 4001, *mainmenu, wxPoint(28, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonmainmenu->SetBitmapCurrent(*mainmenuglow);
+	
+	Current_Player = 1;
+	Count = 0;
+	Total_Count = 0;
+	
 }
 
 
@@ -44,6 +50,7 @@ BoardWindow::~BoardWindow(){
 	delete logo;
 	delete cell00;
 	delete cell11;
+	delete cell22;
 	delete buttonmainmenu;
 }
 
@@ -61,14 +68,17 @@ void BoardWindow::Response(wxCommandEvent & event)
 {
 	Cell *temp = wxDynamicCast(event.GetEventObject(), Cell);
 
-	temp->Set_Current_Ownership(1);
-	temp->Set_Future_Ownership(1);
+	FirstPhase(temp);
 
+
+	//temp->Set_Current_Ownership(1);
+	//temp->Set_Future_Ownership(1);
 	//().Printf("%d %d", temp->x,temp->y);
 	//wxMessageOutputDebug().Printf("cek %d %d", temp->Get_Ownership(), myboard[temp->x][temp->y]->Get_Ownership());
 
 	UpdateCells();
 }
+
 
 void BoardWindow::UpdateCells()
 {
@@ -115,6 +125,25 @@ void BoardWindow::Set_Future_Cell(Coordinates target, int player)
 	myboard[target.x][target.y]->Set_Future_Ownership(player);
 }
 
+void BoardWindow::FirstPhase(Cell * cari)
+{
+	if (cari->Get_Ownership() != 0)return;
+	if (Count == 5)
+	{
+		if (this->Current_Player == 1)this->Current_Player = 2;
+		else this->Current_Player = 1;
+		Count = 0;
+	}
+	wxMessageOutputDebug().Printf("Player %d", this->Current_Player);
+	Count++;
+	Total_Count++;
+	cari->Set_Current_Ownership(this->Current_Player);
+	cari->Set_Future_Ownership(this->Current_Player);
+
+	//if(Total_Count==200)haruse ada boolean
+
+}
+
 
 
 void BoardWindow::LoadBitmap(){
@@ -127,6 +156,8 @@ void BoardWindow::LoadBitmap(){
 	wxString fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\logo.jpg");
 	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\hitamhitam.jpg");
 	wxString fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\birubiru.jpg");
+	wxString fileLocation7 = wxFileName(fileLocation).GetPath() + wxT("\\merahmerah.jpg");
+
 
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
@@ -134,6 +165,8 @@ void BoardWindow::LoadBitmap(){
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
 	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
 	wxImage image6(fileLocation6, wxBITMAP_TYPE_JPEG);
+	wxImage image7(fileLocation7, wxBITMAP_TYPE_JPEG);
+
 
 	board = new wxBitmap(image1);
 	logo = new wxBitmap(image4.Scale(200, 200));
@@ -141,6 +174,7 @@ void BoardWindow::LoadBitmap(){
 	mainmenuglow = new wxBitmap(image3.Scale(160, 60));
 	cell00 = new wxBitmap(image5);
 	cell11 = new wxBitmap(image6);
+	cell22 = new wxBitmap(image7);
 }
 
 
