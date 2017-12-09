@@ -18,7 +18,12 @@ public:
 		this->living = 0;
 	}
 
-	void live()
+	void fugu()
+	{
+		living = player[1] + player[2];
+	}
+
+	int live()
 	{
 		living = player[1] + player[2];
 		if (living == 3)
@@ -29,9 +34,9 @@ public:
 				future_player = 2;
 		}
 		else future_player = 0;
+
+		return future_player;
 	}
-
-
 	int player[3];
 	int living;
 	int future_player;

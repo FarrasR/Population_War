@@ -24,7 +24,6 @@ public:
 	//updater
 	void Update_Current_Ownership();
 
-
 	void setColor();
 
 private:

@@ -25,6 +25,11 @@ public:
 
 	vector<vector <Cell*> >myboard;
 
+	//Updater
+	void Update_Cell_Future_Ownership(Coordinates search);
+	void Update_Board();
+
+
 	//Getter
 	int Get_Cell_Ownership(Coordinates search);
 	int Get_Future_Ownership(Coordinates search);
@@ -61,6 +66,8 @@ private:
 	
 	wxBitmapButton *buttonmainmenu;
 	wxBitmapButton *buttoncellcoba;
+
+	bool First_Phase;
 
 
 	int Current_Player;
