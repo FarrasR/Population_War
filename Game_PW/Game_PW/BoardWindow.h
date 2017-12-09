@@ -18,17 +18,19 @@ public:
 	~BoardWindow();
 	void OnPaint(wxPaintEvent &event);
 	void BackToMainMenu(wxCommandEvent &event);
+	void SacrificeAbility(wxCommandEvent &event);
+	void RelocateAbility(wxCommandEvent &event);
+	void KillAbility(wxCommandEvent &event);
+	void ConvertAbility(wxCommandEvent &event);
 	void Response(wxCommandEvent &event);	//RESPONSE CUMA BUAT INPUT, DIPROSES SAMA FUNGSI LAIN!!!
+	void GoPlay(wxCommandEvent &event);
 	void UpdateCells();
-
-
 
 	vector<vector <Cell*> >myboard;
 
 	//Updater
 	void Update_Cell_Future_Ownership(Coordinates search);
 	void Update_Board();
-
 
 	//Getter
 	int Get_Cell_Ownership(Coordinates search);
@@ -38,12 +40,9 @@ public:
 	//set Ownership
 	void Set_Current_Cell(Coordinates target, int player);
 	void Set_Future_Cell(Coordinates target, int player);
-	
-
 
 	//Func
 	void FirstPhase(Cell* cari);
-
 
 	wxBitmap *cell00 = nullptr;
 	wxBitmap *cell11 = nullptr;
@@ -52,23 +51,38 @@ public:
 	wxBitmap *cell02 = nullptr;
 	wxBitmap *cell10 = nullptr;
 	wxBitmap *cell20 = nullptr;
-
-
-
-	wxBitmap *mainmenu = nullptr;
-	wxBitmap *mainmenuglow = nullptr;
 	
 private:
 	PWFrame *parent;
 	
+	wxBitmap *mainmenu = nullptr;
+	wxBitmap *mainmenuglow = nullptr;
 	wxBitmap *board = nullptr;
 	wxBitmap *logo = nullptr;
-	
+	wxBitmap *sacrifice = nullptr;
+	wxBitmap *sacrificeglow = nullptr;
+	wxBitmap *relocate = nullptr;
+	wxBitmap *relocateglow = nullptr;
+	wxBitmap *kill = nullptr;
+	wxBitmap *killglow = nullptr;
+	wxBitmap *convert = nullptr;
+	wxBitmap *convertglow = nullptr;
+	wxBitmap *player1turn = nullptr;
+	wxBitmap *player2turn = nullptr;
+	wxBitmap *score = nullptr;
+	wxBitmap *goplay = nullptr;
+	wxBitmap *goplayglow = nullptr;
+
+	wxStaticBitmap *playerturn;
 	wxBitmapButton *buttonmainmenu;
+	wxBitmapButton *buttonsacrifice;
+	wxBitmapButton *buttonrelocate;
+	wxBitmapButton *buttonkill;
+	wxBitmapButton *buttonconvert;
 	wxBitmapButton *buttoncellcoba;
+	wxBitmapButton *buttongoplay;
 
 	bool First_Phase;
-
 
 	int Current_Player;
 	int Count;
