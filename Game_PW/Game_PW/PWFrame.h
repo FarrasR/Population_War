@@ -1,6 +1,7 @@
 #pragma once 
 #include "wx\wx.h" 
 #include "Setting.h"
+
 class PWWindow;
 class SettingWindow;
 class HTPWindow;
