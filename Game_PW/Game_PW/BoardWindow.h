@@ -35,7 +35,8 @@ public:
 	void FirstPhase(Cell* cari);
 	void Kill(Cell* cari);
 	void Convert(Cell* cari);
-
+	void Sacrifice(Cell* cari);
+	void Relocate(Cell* cari);
 
 	void UpdateCells();
 
@@ -100,9 +101,15 @@ private:
 	bool Bisa_Convert;
 	bool Bisa_Sacrifice;
 
+	bool sacriflag;
+	bool reloflag;
+
 	int Current_Player;
 	int Count;
 	int Total_Count;
+
+	int Sacrifice_Count;
+	int Relocate_Count;
 
 	void LoadBitmap();
 	DECLARE_EVENT_TABLE()

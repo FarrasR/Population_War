@@ -82,6 +82,9 @@ BoardWindow::~BoardWindow(){
 
 void BoardWindow::StartGame()
 {
+	this->reloflag = false;
+	this->sacriflag = false;
+
 	this->buttonkill->Show(false);
 	this->buttonsacrifice->Show(false);
 	this->buttonconvert->Show(false);
@@ -156,8 +159,8 @@ void BoardWindow::Response(wxCommandEvent & event)
 	if(this->First_Phase==true)FirstPhase(temp);
 	if(this->Bisa_Kill == true)Kill(temp);
 	if(this->Bisa_Convert == true)Convert(temp);
-	//this->Bisa_Sacrifice = true;
-	//this->Bisa_Relocate = false;
+	if(this->Bisa_Sacrifice == true)Sacrifice(temp);
+	if(this->Bisa_Relocate ==true)Relocate(temp);
 
 	//UpdateCells();
 }
@@ -228,6 +231,8 @@ void BoardWindow::Update_Board()
 
 void BoardWindow::Update_Turn()
 {
+	sacriflag = false;
+	reloflag = false;
 	for (int i = 0; i < 20; i++)
 	{
 		for (int j = 0; j < 20; j++)
@@ -318,13 +323,58 @@ void BoardWindow::Convert(Cell * cari)
 	if (cari->Get_Ownership() == 0 || cari->Get_Ownership() == Current_Player)return;
 	else
 	{
-
-		wxMessageOutputDebug().Printf("sebelum %d", cari->Get_Ownership());
 		if(cari->Get_Ownership()==1)
 		cari->Set_Current_Ownership(2);
 		else cari->Set_Current_Ownership(1);
-		wxMessageOutputDebug().Printf("sesudah %d", cari->Get_Ownership());
-		
+		Update_Board();
+		this->buttonkill->Show(false);
+		this->buttonsacrifice->Show(false);
+		this->buttonconvert->Show(false);
+		this->buttonrelocate->Show(false);
+		this->buttongoplay->Show(true);
+	}
+}
+
+void BoardWindow::Sacrifice(Cell * cari)
+{
+	if (Sacrifice_Count != 2)
+	{
+		if (cari->Get_Ownership() == 0 || cari->Get_Ownership() != Current_Player)return;
+		cari->Set_Current_Ownership(0);
+		Update_Board();
+		Sacrifice_Count++;
+	}
+	else
+	{
+		if (cari->Get_Ownership() != 0)return;
+
+		cari->Set_Current_Ownership(Current_Player);
+		Update_Board();
+		this->buttonkill->Show(false);
+		this->buttonsacrifice->Show(false);
+		this->buttonconvert->Show(false);
+		this->buttonrelocate->Show(false);
+		this->buttongoplay->Show(true);
+	}
+}
+
+void BoardWindow::Relocate(Cell * cari)
+{
+	if (Relocate_Count != 1)
+	{
+		if (cari->Get_Ownership() == 0 || cari->Get_Ownership() == Current_Player)return;
+		cari->Set_Current_Ownership(0);
+		Update_Board();
+		Relocate_Count++;
+	}
+	else
+	{
+		if (cari->Get_Ownership() != 0)return;
+
+		if (Current_Player == 1)
+			cari->Set_Current_Ownership(2);
+		else cari->Set_Current_Ownership(1);
+
 		Update_Board();
 		this->buttonkill->Show(false);
 		this->buttonsacrifice->Show(false);
@@ -335,19 +385,36 @@ void BoardWindow::Convert(Cell * cari)
 }
 
 void BoardWindow::SacrificeAbility(wxCommandEvent & event) {
+	
+	if (sacriflag == true)return;
+	wxMessageOutputDebug().Printf("diklik sacrifice");
 	this->Bisa_Kill = false;
 	this->Bisa_Relocate = false;
 	this->Bisa_Convert = false;
 	this->Bisa_Sacrifice = true;
+	this->buttonkill->Show(false);
+	this->buttonsacrifice->Show(true);
+	this->buttonconvert->Show(false);
+	this->buttonrelocate->Show(false);
+	this->Sacrifice_Count = 0;
+	sacriflag = true;
 }
 
 void BoardWindow::RelocateAbility(wxCommandEvent & event) {
+
+	if (reloflag == true)return;
+	wxMessageOutputDebug().Printf("diklik sacrifice");
 
 	this->Bisa_Kill = false;
 	this->Bisa_Relocate = true;
 	this->Bisa_Convert = false;
 	this->Bisa_Sacrifice = false;
-
+	this->buttonkill->Show(false);
+	this->buttonsacrifice->Show(false);
+	this->buttonconvert->Show(false);
+	this->buttonrelocate->Show(true);
+	this->Relocate_Count = 0;
+	reloflag = true;
 }
 
 void BoardWindow::KillAbility(wxCommandEvent & event) {
@@ -355,7 +422,10 @@ void BoardWindow::KillAbility(wxCommandEvent & event) {
 	this->Bisa_Relocate = false;
 	this->Bisa_Convert = false;
 	this->Bisa_Sacrifice = false;
-
+	this->buttonkill->Show(true);
+	this->buttonsacrifice->Show(false);
+	this->buttonconvert->Show(false);
+	this->buttonrelocate->Show(false);
 }
 
 void BoardWindow::ConvertAbility(wxCommandEvent & event) {
@@ -364,7 +434,10 @@ void BoardWindow::ConvertAbility(wxCommandEvent & event) {
 	this->Bisa_Relocate = false;
 	this->Bisa_Convert = true;
 	this->Bisa_Sacrifice = false;
-	
+	this->buttonkill->Show(false);
+	this->buttonsacrifice->Show(false);
+	this->buttonconvert->Show(true);
+	this->buttonrelocate->Show(false);
 }
 
 void BoardWindow::LoadBitmap(){

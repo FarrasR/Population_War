@@ -1,5 +1,9 @@
 ﻿  BoardWindow.cpp
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(195): warning C4018: '<': signed/unsigned mismatch
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(197): warning C4018: '<': signed/unsigned mismatch
+f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(198): warning C4018: '<': signed/unsigned mismatch
+f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(200): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  PWFrame.cpp
+  Cell.cpp
   Game_PW.vcxproj -> F:\Stuffs that might be useful\PBO\Population_War\Game_PW\Debug\Game_PW.exe
   Game_PW.vcxproj -> F:\Stuffs that might be useful\PBO\Population_War\Game_PW\Debug\Game_PW.pdb (Partial PDB)
