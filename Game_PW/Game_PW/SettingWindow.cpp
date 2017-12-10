@@ -111,7 +111,16 @@ void SettingWindow::EnableConvert(wxCommandEvent & event)
 
 void SettingWindow::BackToMainMenu(wxCommandEvent & event)
 {
-	parent->ShowMainWindow();
+
+	//wxMessageOutputDebug().Printf("%d %d", parent->setting->colorp1, parent->setting->colorp2);
+	//return;
+	if (parent->setting->colorp1 == parent->setting->colorp2)
+	{
+		wxString tempo;
+		tempo.Printf(wxT("Player 1 Color Can't be same as Player 2"));
+		int ans = wxMessageBox(tempo, "ERROR", wxOK);
+	}
+	else parent->ShowMainWindow();
 }
 
 void SettingWindow::AbilityMenu(wxCommandEvent & event)

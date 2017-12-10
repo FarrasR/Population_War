@@ -8,6 +8,8 @@ Setting::Setting()
 	this->sacrifice = true;
 	this->convert = false;
 	this->relocate = false;
+	this->colorp1 = 1;
+	this->colorp2 = 2;
 }
 
 

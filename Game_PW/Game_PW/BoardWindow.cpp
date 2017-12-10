@@ -82,6 +82,86 @@ BoardWindow::~BoardWindow(){
 
 void BoardWindow::StartGame()
 {
+	this->JumlahCellp1 = 0;
+	this->JumlahCellp2 = 0;
+	wxStandardPaths &stdPaths = wxStandardPaths::Get();
+	wxString fileLocation = stdPaths.GetExecutablePath();
+
+	wxString fileLocation1;
+	wxString fileLocation2;
+	wxString fileLocation3;
+	wxString fileLocation4;
+	wxString fileLocation5;
+	wxString fileLocation6;
+
+	if (parent->setting->colorp1 == 1)
+	{
+		fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\birubiru.jpg");
+		fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\biruhitam.jpg");
+		fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\hitambiru.jpg");
+	}
+	else if (parent->setting->colorp1 == 2)
+	{
+		fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\merahmerah.jpg");
+		fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\merahhitam.jpg");
+		fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\hitammerah.jpg");
+	}
+	else if (parent->setting->colorp1 == 3)
+	{
+		fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\kuningkuning.jpg");
+		fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\kuninghitam.jpg");
+		fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\hitamkuning.jpg");
+	}
+	else if (parent->setting->colorp1 == 4)
+	{
+		fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\hijauhijau.jpg");
+		fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\hijauhitam.jpg");
+		fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\hitamhijau.jpg");
+	}
+	//////////////////////BATAAASSS///////
+
+	if (parent->setting->colorp2 == 1)
+	{
+		fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\birubiru.jpg");
+		fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\biruhitam.jpg");
+		fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\hitambiru.jpg");
+	}
+	else if (parent->setting->colorp2 == 2)
+	{
+		fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\merahmerah.jpg");
+		fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\merahhitam.jpg");
+		fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\hitammerah.jpg");
+	}
+	else if (parent->setting->colorp2 == 3)
+	{
+		fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\kuningkuning.jpg");
+		fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\kuninghitam.jpg");
+		fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\hitamkuning.jpg");
+	}
+	else if (parent->setting->colorp2 == 4)
+	{
+		fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\hijauhijau.jpg");
+		fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\hijauhitam.jpg");
+		fileLocation6 = wxFileName(fileLocation).GetPath() + wxT("\\hitamhijau.jpg");
+	}
+
+
+	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
+	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
+	wxImage image3(fileLocation3, wxBITMAP_TYPE_JPEG);
+	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
+	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
+	wxImage image6(fileLocation6, wxBITMAP_TYPE_JPEG);
+
+	cell11 = new wxBitmap(image1);
+	cell10 = new wxBitmap(image2);
+	cell01 = new wxBitmap(image3);
+
+	cell22 = new wxBitmap(image4);
+	cell20 = new wxBitmap(image5);
+	cell02 = new wxBitmap(image6);
+
+
 	this->reloflag = false;
 	this->sacriflag = false;
 
@@ -115,10 +195,10 @@ void BoardWindow::StartGame()
 
 void BoardWindow::StartSecondPhase()
 {
+	Update_Board();
 	Change_Player_Turn();
 
 	First_Phase = false;
-	Update_Board();
 	if (parent->setting->kill == false)this->buttonkill->Show(false);
 	else this->buttonkill->Show(true);
 	if (parent->setting->sacrifice == false)this->buttonsacrifice->Show(false);
@@ -156,7 +236,7 @@ void BoardWindow::BackToMainMenu(wxCommandEvent & event) {
 void BoardWindow::Response(wxCommandEvent & event)
 {
 	Cell *temp = wxDynamicCast(event.GetEventObject(), Cell);
-	if(this->First_Phase==true)FirstPhase(temp);
+	if(this->First_Phase == true)FirstPhase(temp);
 	if(this->Bisa_Kill == true)Kill(temp);
 	if(this->Bisa_Convert == true)Convert(temp);
 	if(this->Bisa_Sacrifice == true)Sacrifice(temp);
@@ -176,6 +256,12 @@ void BoardWindow::Change_Player_Turn()
 {
 	if (First_Phase == false)
 	{
+		//ubah disini titut
+		if (JumlahCellp1 == 0);
+
+		if (JumlahCellp2 == 0);
+			
+
 		if (parent->setting->kill == false)this->buttonkill->Show(false);
 		else this->buttonkill->Show(true);
 		if (parent->setting->sacrifice == false)this->buttonsacrifice->Show(false);
@@ -216,6 +302,8 @@ void BoardWindow::Update_Cell_Future_Ownership(Coordinates search)
 
 void BoardWindow::Update_Board()
 {
+	this->JumlahCellp1=0;
+	this->JumlahCellp2=0;
 	Coordinates temp;
 	for (int i = 0; i < 20; i++)
 	{
@@ -223,9 +311,13 @@ void BoardWindow::Update_Board()
 		{
 			temp.x = i;
 			temp.y = j;
+			if(Get_Cell_Ownership(temp) ==1)JumlahCellp1 ++;
+			if (Get_Cell_Ownership(temp) == 2)JumlahCellp2++;
+
 			Update_Cell_Future_Ownership(temp);
 		}
 	}
+	wxMessageOutputDebug().Printf("p1 %d p2 %d", JumlahCellp1, JumlahCellp2);
 	UpdateCells();
 }
 
@@ -292,9 +384,12 @@ void BoardWindow::FirstPhase(Cell * cari)
 	cari->Set_Future_Ownership(this->Current_Player);
 	cari->setColor();
 	
+	if (Current_Player == 1)JumlahCellp1++;
+	if (Current_Player == 2)JumlahCellp2++;
+
 	if (Count == 5)
 	{
-		if (Total_Count == 15)StartSecondPhase();
+		if (Total_Count == 10)StartSecondPhase();
 		else
 		{
 			Change_Player_Turn();
@@ -315,6 +410,12 @@ void BoardWindow::Kill(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+
+		this->Bisa_Kill = false;
+		this->Bisa_Relocate = false;
+		this->Bisa_Convert = false;
+		this->Bisa_Sacrifice = false;
+		this->First_Phase = false;
 	}
 }
 
@@ -332,6 +433,13 @@ void BoardWindow::Convert(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+
+		this->Bisa_Kill = false;
+		this->Bisa_Relocate = false;
+		this->Bisa_Convert = false;
+		this->Bisa_Sacrifice = false;
+		this->First_Phase = false;
+
 	}
 }
 
@@ -355,6 +463,12 @@ void BoardWindow::Sacrifice(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+
+		this->Bisa_Kill = false;
+		this->Bisa_Relocate = false;
+		this->Bisa_Convert = false;
+		this->Bisa_Sacrifice = false;
+		this->First_Phase = false;
 	}
 }
 
@@ -376,11 +490,17 @@ void BoardWindow::Relocate(Cell * cari)
 		else cari->Set_Current_Ownership(1);
 
 		Update_Board();
+		this->Bisa_Kill = false;
+		this->Bisa_Relocate = false;
+		this->Bisa_Convert = false;
+		this->Bisa_Sacrifice = false;
+
 		this->buttonkill->Show(false);
 		this->buttonsacrifice->Show(false);
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+		this->First_Phase = false;
 	}
 }
 
@@ -404,7 +524,6 @@ void BoardWindow::RelocateAbility(wxCommandEvent & event) {
 
 	if (reloflag == true)return;
 	wxMessageOutputDebug().Printf("diklik sacrifice");
-
 	this->Bisa_Kill = false;
 	this->Bisa_Relocate = true;
 	this->Bisa_Convert = false;
