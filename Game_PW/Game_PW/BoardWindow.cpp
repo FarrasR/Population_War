@@ -25,21 +25,8 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	wxImageHandler *gifLoader = new wxGIFHandler();
 	wxImage::AddHandler(jpgLoader);
 	wxImage::AddHandler(gifLoader);
-	this->LoadBitmap();
 	this->parent = parent;
-
-	for (int i = 0; i < 20; i++) {
-		vector<Cell*>temp2;
-		myboard.push_back(temp2);
-		for (int j = 0; j < 20; j++) {
-			Cell *yuhu;
-			yuhu = new Cell(this, (251 + 25 * i), (121 + 25 * j), i, j);
-			yuhu->Bind(wxEVT_BUTTON, &BoardWindow::Response, this);
-
-			myboard[i].push_back(yuhu);
-		}
-	}
-
+	this->LoadBitmap();
 	buttonmainmenu = new wxBitmapButton(this, 4001, *mainmenu, wxPoint(28, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonsacrifice = new wxBitmapButton(this, 4002, *sacrifice, wxPoint(780, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonrelocate = new wxBitmapButton(this, 4003, *relocate, wxPoint(780, 255), wxDefaultSize, wxBORDER_NONE);
@@ -55,10 +42,6 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	buttonconvert->SetBitmapCurrent(*convertglow);
 	buttongoplay->SetBitmapCurrent(*goplayglow);
 
-	Current_Player = 1;
-	Count = 0;
-	Total_Count = 0;
-	this->First_Phase = true;
 }
 
 
@@ -67,10 +50,80 @@ BoardWindow::~BoardWindow(){
 	delete mainmenuglow;
 	delete board;
 	delete logo;
+	delete sacrifice;
+	delete sacrificeglow;
+	delete relocate;
+	delete relocateglow;
+	delete kill;
+	delete killglow;
+	delete convert;
+	delete convertglow;
+	delete player1turn;
+	delete player2turn;
+	delete score;
+	delete goplay;
+	delete goplayglow;
+	delete playerturn;
+	delete buttonmainmenu;
+	delete buttonsacrifice;
+	delete buttonrelocate;
+	delete buttonkill;
+	delete buttonconvert;
+	delete buttoncellcoba;
+	delete buttongoplay;
 	delete cell00;
 	delete cell11;
 	delete cell22;
-	delete buttonmainmenu;
+	delete cell01;
+	delete cell02;
+	delete cell10;
+	delete cell20;
+}
+
+void BoardWindow::StartGame()
+{
+	this->buttonkill->Show(false);
+	this->buttonsacrifice->Show(false);
+	this->buttonconvert->Show(false);
+	this->buttonrelocate->Show(false);
+	this->buttongoplay->Show(false);
+
+	Current_Player = 1;
+	Count = 0;
+	Total_Count = 0;
+	this->First_Phase = true;
+	this->Bisa_Kill = false;
+	this->Bisa_Relocate = false;
+	this->Bisa_Convert = false;
+	this->Bisa_Sacrifice = false;
+
+	Cell *yuhu;
+	for (int i = 0; i < 20; i++) {
+		vector<Cell*>temp2;
+		myboard.push_back(temp2);
+		for (int j = 0; j < 20; j++) {
+			yuhu = new Cell(this, (251 + 25 * i), (121 + 25 * j), i, j);
+			yuhu->Bind(wxEVT_BUTTON, &BoardWindow::Response, this);
+			myboard[i].push_back(yuhu);
+		}
+	}
+
+}
+
+void BoardWindow::StartSecondPhase()
+{
+	Change_Player_Turn();
+
+	First_Phase = false;
+	Update_Board();
+	if (parent->setting->kill == false)this->buttonkill->Show(false);
+	else this->buttonkill->Show(true);
+	if (parent->setting->sacrifice == false)this->buttonsacrifice->Show(false);
+	else this->buttonsacrifice->Show(true);
+	if (parent->setting->convert == false)this->buttonconvert->Show(false);
+	else this->buttonconvert->Show(true);
+	if (parent->setting->relocate == false)this->buttonrelocate->Show(false);
+	else this->buttonrelocate->Show(true);
 }
 
 void BoardWindow::OnPaint(wxPaintEvent & event){
@@ -80,28 +133,60 @@ void BoardWindow::OnPaint(wxPaintEvent & event){
 	pdc.DrawBitmap(*score, wxPoint(15, 300), true);
 }
 
-void BoardWindow::BackToMainMenu(wxCommandEvent & event){
-	parent->ShowMainWindow();
+void BoardWindow::BackToMainMenu(wxCommandEvent & event) {
+
+	wxString tempo;
+	tempo.Printf(wxT("You fokken sure mate? Progress won't be saved"));
+	int ans = wxMessageBox(tempo, "Main Menu", wxYES_NO);
+	if (ans == wxYES)
+	{
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 20; j++) {
+				delete myboard[i][j];
+			}
+		}
+		this->myboard.clear();
+		parent->ShowMainWindow();
+	}
 }
 
 void BoardWindow::Response(wxCommandEvent & event)
 {
 	Cell *temp = wxDynamicCast(event.GetEventObject(), Cell);
-
 	if(this->First_Phase==true)FirstPhase(temp);
+	if(this->Bisa_Kill == true)Kill(temp);
+	if(this->Bisa_Convert == true)Convert(temp);
+	//this->Bisa_Sacrifice = true;
+	//this->Bisa_Relocate = false;
 
-	UpdateCells();
+	//UpdateCells();
 }
 
 void BoardWindow::GoPlay(wxCommandEvent & event)
 {
-	if (Total_Count == 10) {
-		Update_Board();
-		Total_Count = 0;
-	}
-	else wxMessageBox(wxT("Merah belum selesai"));
+	Change_Player_Turn();
+	Update_Turn();
+	this->buttongoplay->Show(false);
+}
 
-	if(Count == 5 && this->Current_Player == 2) playerturn->SetBitmap(*player1turn);
+void BoardWindow::Change_Player_Turn()
+{
+	if (First_Phase == false)
+	{
+		if (parent->setting->kill == false)this->buttonkill->Show(false);
+		else this->buttonkill->Show(true);
+		if (parent->setting->sacrifice == false)this->buttonsacrifice->Show(false);
+		else this->buttonsacrifice->Show(true);
+		if (parent->setting->convert == false)this->buttonconvert->Show(false);
+		else this->buttonconvert->Show(true);
+		if (parent->setting->relocate == false)this->buttonrelocate->Show(false);
+		else this->buttonrelocate->Show(true);
+	}
+
+	if (this->Current_Player == 1) this->Current_Player = 2;
+	else this->Current_Player = 1;
+	if (this->Current_Player == 2) playerturn->SetBitmap(*player2turn);
+	else if (this->Current_Player == 1)playerturn->SetBitmap(*player1turn);
 }
 
 
@@ -128,15 +213,29 @@ void BoardWindow::Update_Cell_Future_Ownership(Coordinates search)
 
 void BoardWindow::Update_Board()
 {
+	Coordinates temp;
 	for (int i = 0; i < 20; i++)
 	{
 		for (int j = 0; j < 20; j++)
 		{
-			Coordinates temp(i, j);
+			temp.x = i;
+			temp.y = j;
 			Update_Cell_Future_Ownership(temp);
 		}
 	}
 	UpdateCells();
+}
+
+void BoardWindow::Update_Turn()
+{
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			myboard[i][j]->Update_Current_Ownership();
+		}
+	}
+	Update_Board();
 }
 
 int BoardWindow::Get_Cell_Ownership(Coordinates search)
@@ -154,11 +253,13 @@ Nearby BoardWindow::Get_Nearby_Cell(Coordinates search)
 	int tempx[8] = { -1,0,1,-1,1,-1,0,1 };
 	int tempy[8] = { 1,1,1,0,0,-1,-1,-1 };
 	Nearby kol;
+	Coordinates temp;
 	for (int i = 0; i < 8; i++)
 	{
 		if (search.x + tempx[i] < 20 && search.x + tempx[i] >= 0 && search.y + tempy[i] < 20 && search.y + tempy[i] >= 0)
 		{
-			Coordinates temp(search.x + tempx[i], search.y + tempy[i]);
+			temp.x = search.x + tempx[i];
+			temp.y=	search.y + tempy[i];
 			kol.player[Get_Cell_Ownership(temp)]++;
 		}
 	}
@@ -178,36 +279,92 @@ void BoardWindow::Set_Future_Cell(Coordinates target, int player)
 void BoardWindow::FirstPhase(Cell * cari)
 {
 	if (cari->Get_Ownership() != 0)return;
-	if (Count == 5)
-	{
-		if (this->Current_Player == 1) this->Current_Player = 2;
-		else this->Current_Player = 1;
-		Count = 0;
-	}
-	wxMessageOutputDebug().Printf("Player %d", this->Current_Player);
+	
 	Count++;
 	Total_Count++;
 
 	cari->Set_Current_Ownership(this->Current_Player);
 	cari->Set_Future_Ownership(this->Current_Player);
+	cari->setColor();
+	
+	if (Count == 5)
+	{
+		if (Total_Count == 15)StartSecondPhase();
+		else
+		{
+			Change_Player_Turn();
+			Count = 0;
+		}
+	}	
+}
 
-	if (this->Current_Player == 1 && Count == 5) playerturn->SetBitmap(*player2turn);
+void BoardWindow::Kill(Cell * cari)
+{
+	if (cari->Get_Ownership() == 0)return;
+	else
+	{
+		cari->Set_Current_Ownership(0);		
+		Update_Board();
+		this->buttonkill->Show(false);
+		this->buttonsacrifice->Show(false);
+		this->buttonconvert->Show(false);
+		this->buttonrelocate->Show(false);
+		this->buttongoplay->Show(true);
+	}
+}
+
+void BoardWindow::Convert(Cell * cari)
+{
+	if (cari->Get_Ownership() == 0 || cari->Get_Ownership() == Current_Player)return;
+	else
+	{
+
+		wxMessageOutputDebug().Printf("sebelum %d", cari->Get_Ownership());
+		if(cari->Get_Ownership()==1)
+		cari->Set_Current_Ownership(2);
+		else cari->Set_Current_Ownership(1);
+		wxMessageOutputDebug().Printf("sesudah %d", cari->Get_Ownership());
+		
+		Update_Board();
+		this->buttonkill->Show(false);
+		this->buttonsacrifice->Show(false);
+		this->buttonconvert->Show(false);
+		this->buttonrelocate->Show(false);
+		this->buttongoplay->Show(true);
+	}
 }
 
 void BoardWindow::SacrificeAbility(wxCommandEvent & event) {
-	wxMessageBox(wxT("Event klik terjadi pada tombol sacrifice"));
+	this->Bisa_Kill = false;
+	this->Bisa_Relocate = false;
+	this->Bisa_Convert = false;
+	this->Bisa_Sacrifice = true;
 }
 
 void BoardWindow::RelocateAbility(wxCommandEvent & event) {
-	wxMessageBox(wxT("Event klik terjadi pada tombol relocate"));
+
+	this->Bisa_Kill = false;
+	this->Bisa_Relocate = true;
+	this->Bisa_Convert = false;
+	this->Bisa_Sacrifice = false;
+
 }
 
 void BoardWindow::KillAbility(wxCommandEvent & event) {
-	wxMessageBox(wxT("Event klik terjadi pada tombol kill"));
+	this->Bisa_Kill = true;
+	this->Bisa_Relocate = false;
+	this->Bisa_Convert = false;
+	this->Bisa_Sacrifice = false;
+
 }
 
 void BoardWindow::ConvertAbility(wxCommandEvent & event) {
-	wxMessageBox(wxT("Event klik terjadi pada tombol convert"));
+
+	this->Bisa_Kill = false;
+	this->Bisa_Relocate = false;
+	this->Bisa_Convert = true;
+	this->Bisa_Sacrifice = false;
+	
 }
 
 void BoardWindow::LoadBitmap(){

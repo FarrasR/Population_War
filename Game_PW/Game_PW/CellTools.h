@@ -2,6 +2,7 @@
 class Coordinates
 {
 public:
+	Coordinates();
 	Coordinates(int x, int y);
 	int x;
 	int y;

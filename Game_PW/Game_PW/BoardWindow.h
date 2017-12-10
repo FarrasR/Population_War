@@ -16,14 +16,27 @@ class BoardWindow : public wxWindow{
 public:
 	BoardWindow(PWFrame *parent);
 	~BoardWindow();
+	void StartGame();
+	void StartSecondPhase();
 	void OnPaint(wxPaintEvent &event);
 	void BackToMainMenu(wxCommandEvent &event);
+	
+	void Response(wxCommandEvent &event);	//RESPONSE CUMA BUAT INPUT, DIPROSES SAMA FUNGSI LAIN!!!
+	void GoPlay(wxCommandEvent &event);
+	void Change_Player_Turn();
+
 	void SacrificeAbility(wxCommandEvent &event);
 	void RelocateAbility(wxCommandEvent &event);
 	void KillAbility(wxCommandEvent &event);
 	void ConvertAbility(wxCommandEvent &event);
-	void Response(wxCommandEvent &event);	//RESPONSE CUMA BUAT INPUT, DIPROSES SAMA FUNGSI LAIN!!!
-	void GoPlay(wxCommandEvent &event);
+
+
+	//Func
+	void FirstPhase(Cell* cari);
+	void Kill(Cell* cari);
+	void Convert(Cell* cari);
+
+
 	void UpdateCells();
 
 	vector<vector <Cell*> >myboard;
@@ -31,6 +44,7 @@ public:
 	//Updater
 	void Update_Cell_Future_Ownership(Coordinates search);
 	void Update_Board();
+	void Update_Turn();
 
 	//Getter
 	int Get_Cell_Ownership(Coordinates search);
@@ -41,8 +55,6 @@ public:
 	void Set_Current_Cell(Coordinates target, int player);
 	void Set_Future_Cell(Coordinates target, int player);
 
-	//Func
-	void FirstPhase(Cell* cari);
 
 	wxBitmap *cell00 = nullptr;
 	wxBitmap *cell11 = nullptr;
@@ -83,6 +95,10 @@ private:
 	wxBitmapButton *buttongoplay;
 
 	bool First_Phase;
+	bool Bisa_Kill;
+	bool Bisa_Relocate;
+	bool Bisa_Convert;
+	bool Bisa_Sacrifice;
 
 	int Current_Player;
 	int Count;

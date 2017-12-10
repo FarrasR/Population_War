@@ -68,6 +68,8 @@ void PWFrame::ShowSettingWindow()
 
 void PWFrame::ShowBoardWindow()
 {
+	this->boardwindow->StartGame();
+
 	this->mainwindow->Show(false);
 	this->settingwindow->Show(false);
 	this->howtoplaywindow->Show(false);
