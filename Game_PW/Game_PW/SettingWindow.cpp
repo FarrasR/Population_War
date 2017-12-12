@@ -28,19 +28,19 @@ SettingWindow::SettingWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY)
 	this->parent = parent;
 
 	buttonkill = new wxBitmapButton(this, 2001, *checkboxfalse, wxPoint(360, 215), wxDefaultSize, wxBORDER_NONE);
-	buttonconvert = new wxBitmapButton(this, 2002, *checkboxfalse, wxPoint(360, 265), wxDefaultSize, wxBORDER_NONE);
-	buttonsacrifice = new wxBitmapButton(this, 2003, *checkboxfalse, wxPoint(360, 315), wxDefaultSize, wxBORDER_NONE);
-	buttonrelocate = new wxBitmapButton(this, 2004, *checkboxfalse, wxPoint(360, 365), wxDefaultSize, wxBORDER_NONE);
-	menutextstatic = new wxStaticBitmap(this, wxID_ANY, *abilitytext, wxPoint(130, 215), wxDefaultSize, wxBORDER_NONE);
+	buttonconvert = new wxBitmapButton(this, 2002, *checkboxfalse, wxPoint(360, 267), wxDefaultSize, wxBORDER_NONE);
+	buttonsacrifice = new wxBitmapButton(this, 2003, *checkboxfalse, wxPoint(360, 319), wxDefaultSize, wxBORDER_NONE);
+	buttonrelocate = new wxBitmapButton(this, 2004, *checkboxfalse, wxPoint(360, 371), wxDefaultSize, wxBORDER_NONE);
+	menutextstatic = new wxStaticBitmap(this, wxID_ANY, *abilitytext, wxPoint(130, 175), wxDefaultSize, wxBORDER_NONE);
 	
-	buttonnextcolor1 = new wxBitmapButton(this, 2008, *nextcolor, wxPoint(330, 254), wxDefaultSize, wxBORDER_NONE);
-	buttonnextcolor2 = new wxBitmapButton(this, 2009, *nextcolor, wxPoint(330, 350), wxDefaultSize, wxBORDER_NONE);
-	player1color = new wxStaticBitmap(this, wxID_ANY, *cellbluecolor, wxPoint(288, 250), wxDefaultSize, wxBORDER_NONE);
-	player2color = new wxStaticBitmap(this, wxID_ANY, *cellredcolor, wxPoint(288, 347), wxDefaultSize, wxBORDER_NONE);
+	buttonnextcolor1 = new wxBitmapButton(this, 2008, *nextcolor, wxPoint(357, 259), wxDefaultSize, wxBORDER_NONE);
+	buttonnextcolor2 = new wxBitmapButton(this, 2009, *nextcolor, wxPoint(357, 348), wxDefaultSize, wxBORDER_NONE);
+	player1color = new wxStaticBitmap(this, wxID_ANY, *cellbluecolor, wxPoint(295, 258), wxDefaultSize, wxBORDER_NONE);
+	player2color = new wxStaticBitmap(this, wxID_ANY, *cellredcolor, wxPoint(295, 344), wxDefaultSize, wxBORDER_NONE);
 
 	buttonmainmenu = new wxBitmapButton(this, 2005, *mainmenu, wxPoint(550, 400), wxDefaultSize, wxBORDER_NONE);
 	buttonmainmenu->SetBitmapCurrent(*mainmenuglow);
-	buttonabilitymenu = new wxBitmapButton(this, 2006, *abilitymenu, wxPoint(120, 120), wxDefaultSize, wxBORDER_NONE);
+	buttonabilitymenu = new wxBitmapButton(this, 2006, *abilitymenu, wxPoint(126, 120), wxDefaultSize, wxBORDER_NONE);
 	buttonabilitymenu->SetBitmapCurrent(*abilitymenuglow);
 	buttoncellmenu = new wxBitmapButton(this, 2007, *cellmenu, wxPoint(275, 120), wxDefaultSize, wxBORDER_NONE);
 	buttoncellmenu->SetBitmapCurrent(*cellmenuglow);

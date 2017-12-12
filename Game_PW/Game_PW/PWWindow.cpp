@@ -11,7 +11,6 @@ BEGIN_EVENT_TABLE(PWWindow, wxWindow)
 END_EVENT_TABLE()
 
 PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
-
 	this->SetBackgroundColour(wxColour(*wxBLACK));
 	wxInitAllImageHandlers();
 	wxImageHandler *jpgLoader = new wxJPEGHandler();
@@ -19,10 +18,10 @@ PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
 	this->LoadMainBitmap();
 	this->parent = parent;
 
-	button1 = new wxBitmapButton(this, 1001, *playbutton, wxPoint(380, 420), wxDefaultSize, wxBORDER_NONE);
-	button2 = new wxBitmapButton(this, 1002, *settingbutton, wxPoint(200, 530), wxDefaultSize, wxBORDER_NONE);
-	button3 = new wxBitmapButton(this, 1003, *htpbutton, wxPoint(400, 530), wxDefaultSize, wxBORDER_NONE);
-	button4 = new wxBitmapButton(this, 1004, *creditbutton, wxPoint(600, 530), wxDefaultSize, wxBORDER_NONE);
+	button1 = new wxBitmapButton(this, 1001, *playbutton, wxPoint(425, 350), wxDefaultSize, wxBORDER_NONE);
+	button2 = new wxBitmapButton(this, 1002, *settingbutton, wxPoint(207.5, 530), wxDefaultSize, wxBORDER_NONE);
+	button3 = new wxBitmapButton(this, 1003, *htpbutton, wxPoint(407.5, 530), wxDefaultSize, wxBORDER_NONE);
+	button4 = new wxBitmapButton(this, 1004, *creditbutton, wxPoint(607.5, 530), wxDefaultSize, wxBORDER_NONE);
 	
 	button4->SetBitmapCurrent(*creditbuttonglow);
 	button3->SetBitmapCurrent(*htpbuttonglow);
@@ -31,8 +30,7 @@ PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
 }
 
 PWWindow::~PWWindow() {
-	delete logoBitmap;
-	delete textpwBitmap;
+	delete newbackground;
 	delete playbutton;
 	delete settingbutton;
 	delete htpbutton;
@@ -51,8 +49,6 @@ PWWindow::~PWWindow() {
 void PWWindow::LoadMainBitmap() {
 	wxStandardPaths &stdPaths = wxStandardPaths::Get();
 	wxString fileLocation = stdPaths.GetExecutablePath();
-	wxString fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\logo.jpg");
-	wxString fileLocation2 = wxFileName(fileLocation).GetPath() + wxT("\\textpw.jpg");
 	wxString fileLocation3 = wxFileName(fileLocation).GetPath() + wxT("\\play.jpg");
 	wxString fileLocation4 = wxFileName(fileLocation).GetPath() + wxT("\\settext.jpg");
 	wxString fileLocation5 = wxFileName(fileLocation).GetPath() + wxT("\\htptext.jpg");
@@ -61,9 +57,8 @@ void PWWindow::LoadMainBitmap() {
 	wxString fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\htptextglow.jpg");
 	wxString fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\settextglow.jpg");
 	wxString fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\playglow.jpg");
+	wxString fileLocation11 = wxFileName(fileLocation).GetPath() + wxT("\\backgroundpw.jpg");
 	
-	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
-	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
 	wxImage image3(fileLocation3, wxBITMAP_TYPE_JPEG);
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
 	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
@@ -72,10 +67,8 @@ void PWWindow::LoadMainBitmap() {
 	wxImage image8(fileLocation8, wxBITMAP_TYPE_JPEG);
 	wxImage image9(fileLocation9, wxBITMAP_TYPE_JPEG);
 	wxImage image10(fileLocation10, wxBITMAP_TYPE_JPEG);
+	wxImage image11(fileLocation11, wxBITMAP_TYPE_JPEG);
 
-
-	logoBitmap = new wxBitmap(image1.Scale(350, 350));
-	textpwBitmap = new wxBitmap(image2);
 	playbutton = new wxBitmap(image3);
 	playbuttonglow = new wxBitmap(image10);
 	settingbutton = new wxBitmap(image4);
@@ -84,13 +77,12 @@ void PWWindow::LoadMainBitmap() {
 	htpbuttonglow = new wxBitmap(image8);
 	creditbutton = new wxBitmap(image6);
 	creditbuttonglow = new wxBitmap(image7);
-
+	newbackground = new wxBitmap(image11);
 }
 
 void PWWindow::OnPaint(wxPaintEvent &event) {
 	wxPaintDC pdc(this);
-	pdc.DrawBitmap(*logoBitmap, wxPoint(325, 10), true);
-	pdc.DrawBitmap(*textpwBitmap, wxPoint(200, 330), true);
+	pdc.DrawBitmap(*newbackground, wxPoint(-10, 0), true);
 }
 
 void PWWindow::ClickPlay(wxCommandEvent & event){

@@ -16,14 +16,24 @@ public:
 private:
 	PWFrame *parent;
 
-	wxBitmap *mainmenu;
-	wxBitmap *mainmenuglow;
-	wxBitmap *howtoplay;
+	wxBitmap *mainmenu = nullptr;
+	wxBitmap *mainmenuglow = nullptr;
+	wxBitmap *howtoplay = nullptr;
 	wxBitmap *scrollnext = nullptr;
-	wxBitmap *scrollnextglow = nullptr;
 	wxBitmap *scrollprev = nullptr;
+	wxBitmap *scrollnextglow = nullptr;
 	wxBitmap *scrollprevglow = nullptr;
+	wxBitmap *htppage1 = nullptr;
+	wxBitmap *htppage2 = nullptr;
+	wxBitmap *htppage3 = nullptr;
+	wxBitmap *htppage4 = nullptr;
+	wxBitmap *htppage5 = nullptr;
+	wxBitmap *htppage6 = nullptr;
+	wxBitmap *htppage7 = nullptr;
+	wxBitmap *htppage8 = nullptr;
+	wxBitmap *htppage9 = nullptr;
 
+	wxStaticBitmap *htptextstatic;
 	wxBitmapButton *back;
 	wxBitmapButton *scrollnextbutton;
 	wxBitmapButton *scrollprevbutton;

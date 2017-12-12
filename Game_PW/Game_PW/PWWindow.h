@@ -14,8 +14,6 @@ public:
 	void ClickCredit(wxCommandEvent &event);
 
 private:
-	wxBitmap *logoBitmap = nullptr;
-	wxBitmap *textpwBitmap = nullptr;
 	wxBitmap *playbutton = nullptr;
 	wxBitmap *settingbutton = nullptr;
 	wxBitmap *htpbutton = nullptr;
@@ -24,6 +22,7 @@ private:
 	wxBitmap *settingbuttonglow = nullptr;
 	wxBitmap *htpbuttonglow = nullptr;
 	wxBitmap *creditbuttonglow = nullptr;
+	wxBitmap *newbackground = nullptr;
 
 	wxBitmapButton *button1;
 	wxBitmapButton *button2;

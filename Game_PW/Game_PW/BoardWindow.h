@@ -111,8 +111,8 @@ private:
 	int Sacrifice_Count;
 	int Relocate_Count;
 
-	int JumlahCellp1;
-	int JumlahCellp2;
+	int JumlahCellp1 = 0;
+	int JumlahCellp2 = 0;
 
 	void LoadBitmap();
 	DECLARE_EVENT_TABLE()

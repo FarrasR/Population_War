@@ -4,6 +4,8 @@
 #include "Cell.h"
 #include <wx/arrimpl.cpp>
 #include <wx/dynarray.h>
+#include <sstream>
+using namespace std;
 
 
 BEGIN_EVENT_TABLE(BoardWindow, wxWindow)
@@ -195,6 +197,7 @@ void BoardWindow::StartGame()
 
 void BoardWindow::StartSecondPhase()
 {
+	Refresh();
 	Update_Board();
 	Change_Player_Turn();
 
@@ -214,6 +217,20 @@ void BoardWindow::OnPaint(wxPaintEvent & event){
 	pdc.DrawBitmap(*board, wxPoint(250, 120), true);
 	pdc.DrawBitmap(*logo, wxPoint(10, 10), true);
 	pdc.DrawBitmap(*score, wxPoint(15, 300), true);
+	
+	wxClientDC dc1(this), dc2(this);
+
+	wstringstream str1, str2;
+	str1 << JumlahCellp1 << ends;
+	str2 << JumlahCellp2 << ends;
+
+	wxFont font(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false);
+	dc1.SetFont(font);
+	dc2.SetFont(font);
+	dc1.SetTextForeground(wxColour(255, 102, 0));
+	dc2.SetTextForeground(wxColour(255, 102, 0));
+	dc1.DrawText(str1.str().c_str(), 200, 320);
+	dc1.DrawText(str2.str().c_str(), 200, 370);
 }
 
 void BoardWindow::BackToMainMenu(wxCommandEvent & event) {
@@ -247,6 +264,7 @@ void BoardWindow::Response(wxCommandEvent & event)
 
 void BoardWindow::GoPlay(wxCommandEvent & event)
 {
+	Refresh();
 	Change_Player_Turn();
 	Update_Turn();
 	this->buttongoplay->Show(false);
@@ -254,6 +272,7 @@ void BoardWindow::GoPlay(wxCommandEvent & event)
 
 void BoardWindow::Change_Player_Turn()
 {
+	Refresh();
 	if (First_Phase == false)
 	{
 		//ubah disini titut
@@ -302,6 +321,7 @@ void BoardWindow::Update_Cell_Future_Ownership(Coordinates search)
 
 void BoardWindow::Update_Board()
 {
+	Refresh();
 	this->JumlahCellp1=0;
 	this->JumlahCellp2=0;
 	Coordinates temp;
@@ -318,11 +338,13 @@ void BoardWindow::Update_Board()
 		}
 	}
 	wxMessageOutputDebug().Printf("p1 %d p2 %d", JumlahCellp1, JumlahCellp2);
+
 	UpdateCells();
 }
 
 void BoardWindow::Update_Turn()
 {
+	Refresh();
 	sacriflag = false;
 	reloflag = false;
 	for (int i = 0; i < 20; i++)
@@ -375,6 +397,7 @@ void BoardWindow::Set_Future_Cell(Coordinates target, int player)
 
 void BoardWindow::FirstPhase(Cell * cari)
 {
+	Refresh();
 	if (cari->Get_Ownership() != 0)return;
 	
 	Count++;
