@@ -161,6 +161,13 @@ void BoardWindow::StartGame()
 	wxImage image5(fileLocation5, wxBITMAP_TYPE_JPEG);
 	wxImage image6(fileLocation6, wxBITMAP_TYPE_JPEG);
 
+	delete cell11;
+	delete cell10;
+	delete cell01;
+	delete cell22;
+	delete cell20;
+	delete cell02;
+
 	cell11 = new wxBitmap(image1);
 	cell10 = new wxBitmap(image2);
 	cell01 = new wxBitmap(image3);
@@ -249,8 +256,8 @@ void BoardWindow::BackToMainMenu(wxCommandEvent & event) {
 	int ans = wxMessageBox(tempo, "Main Menu", wxYES_NO);
 	if (ans == wxYES)
 	{
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 20; j++) {
+		for (int i = 0; i < myboard.size(); i++) {
+			for (int j = 0; j < myboard[i].size(); j++) {
 				delete myboard[i][j];
 			}
 		}
@@ -274,8 +281,8 @@ void BoardWindow::Response(wxCommandEvent & event)
 void BoardWindow::GoPlay(wxCommandEvent & event)
 {
 	Refresh();
-	Change_Player_Turn();
 	Update_Turn();
+	Change_Player_Turn();
 	this->buttongoplay->Show(false);
 }
 
@@ -284,11 +291,27 @@ void BoardWindow::Change_Player_Turn()
 	Refresh();
 	if (First_Phase == false)
 	{
-		//ubah disini titut
-		if (JumlahCellp1 == 0);
 
-		if (JumlahCellp2 == 0);
-			
+		if (JumlahCellp1 == 0)
+		{
+			for (int i = 0; i < myboard.size(); i++) {
+				for (int j = 0; j < myboard[i].size(); j++) {
+					delete myboard[i][j];
+				}
+			}
+			this->myboard.clear();
+			parent->ShowWinningWindow();
+		}
+		else if (JumlahCellp2 == 0)
+		{
+			for (int i = 0; i < myboard.size(); i++) {
+				for (int j = 0; j < myboard[i].size(); j++) {
+					delete myboard[i][j];
+				}
+			}
+			this->myboard.clear();
+			parent->ShowWinningWindow();
+		}
 
 		if (parent->setting->kill == false)this->buttonkill->Show(false);
 		else this->buttonkill->Show(true);

@@ -4,6 +4,7 @@
 #include "HTPWindow.h"
 #include "CreditWindow.h"
 #include "BoardWindow.h"
+#include "WinningWindow.h"
 
 PWFrame::PWFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, title)
 {
@@ -40,6 +41,11 @@ void PWFrame::InitComponents()
 	this->creditwindow->Show(false);
 	this->boxSizer->Add(creditwindow, 1, wxEXPAND, 0);
 
+	this->winningwindow = new WinningWindow(this);
+	this->winningwindow->Show(false);
+	this->boxSizer->Add(winningwindow, 1, wxEXPAND, 0);
+
+
 	SetSizer(boxSizer);
 	ShowMainWindow();
 }
@@ -51,7 +57,7 @@ void PWFrame::ShowMainWindow()
 	this->howtoplaywindow->Show(false);
 	this->creditwindow->Show(false);
 	this->boardwindow->Show(false);
-
+	this->winningwindow->Show(false);
 	this->fitwindowSize();
 }
 
@@ -63,6 +69,7 @@ void PWFrame::ShowSettingWindow()
 	this->creditwindow->Show(false);
 	this->boardwindow->Show(false);
 
+	this->winningwindow->Show(false);
 	this->fitwindowSize();
 }
 
@@ -76,6 +83,7 @@ void PWFrame::ShowBoardWindow()
 	this->creditwindow->Show(false);
 	this->boardwindow->Show(true);
 
+	this->winningwindow->Show(false);
 	this->fitwindowSize();
 }
 
@@ -87,6 +95,7 @@ void PWFrame::ShowHTPWindow()
 	this->creditwindow->Show(false);
 	this->boardwindow->Show(false);
 
+	this->winningwindow->Show(false);
 	this->fitwindowSize();
 }
 
@@ -98,6 +107,19 @@ void PWFrame::ShowCreditWindow()
 	this->creditwindow->Show(true);
 	this->boardwindow->Show(false);
 
+	this->winningwindow->Show(false);
+	this->fitwindowSize();
+}
+
+void PWFrame::ShowWinningWindow()
+{
+	this->mainwindow->Show(false);
+	this->settingwindow->Show(false);
+	this->howtoplaywindow->Show(false);
+	this->creditwindow->Show(false);
+	this->boardwindow->Show(false);
+
+	this->winningwindow->Show(true);
 	this->fitwindowSize();
 }
 

@@ -7,6 +7,7 @@ class SettingWindow;
 class HTPWindow;
 class CreditWindow;
 class BoardWindow;
+class WinningWindow;
 
 class PWFrame : public wxFrame {
 public:
@@ -19,6 +20,7 @@ public:
 	void ShowSettingWindow();
 	void ShowHTPWindow();
 	void ShowCreditWindow();
+	void ShowWinningWindow();
 
 private:
 	PWWindow *mainwindow;
@@ -26,7 +28,7 @@ private:
 	HTPWindow *howtoplaywindow;
 	CreditWindow *creditwindow;
 	BoardWindow *boardwindow;
-
+	WinningWindow *winningwindow;
 	wxBoxSizer* boxSizer;
 	void fitwindowSize();
 };
