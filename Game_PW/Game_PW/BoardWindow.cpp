@@ -292,8 +292,23 @@ void BoardWindow::Change_Player_Turn()
 	if (First_Phase == false)
 	{
 
-		if (JumlahCellp1 == 0)
+
+		if (JumlahCellp1 == 0 && JumlahCellp2 == 0)
 		{
+			parent->setting->yangmenang = 3;
+			for (int i = 0; i < myboard.size(); i++) {
+				for (int j = 0; j < myboard[i].size(); j++) {
+					delete myboard[i][j];
+				}
+			}
+			this->myboard.clear();
+			parent->ShowWinningWindow();
+
+		}
+		else if (JumlahCellp1 == 0)
+		{
+
+			parent->setting->yangmenang = 2;
 			for (int i = 0; i < myboard.size(); i++) {
 				for (int j = 0; j < myboard[i].size(); j++) {
 					delete myboard[i][j];
@@ -304,6 +319,7 @@ void BoardWindow::Change_Player_Turn()
 		}
 		else if (JumlahCellp2 == 0)
 		{
+			parent->setting->yangmenang = 1;
 			for (int i = 0; i < myboard.size(); i++) {
 				for (int j = 0; j < myboard[i].size(); j++) {
 					delete myboard[i][j];

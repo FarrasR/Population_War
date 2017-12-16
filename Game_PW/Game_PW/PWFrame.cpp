@@ -113,6 +113,9 @@ void PWFrame::ShowCreditWindow()
 
 void PWFrame::ShowWinningWindow()
 {
+	this->winningwindow->WhoWin();
+
+
 	this->mainwindow->Show(false);
 	this->settingwindow->Show(false);
 	this->howtoplaywindow->Show(false);

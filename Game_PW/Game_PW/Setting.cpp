@@ -10,6 +10,7 @@ Setting::Setting()
 	this->relocate = false;
 	this->colorp1 = 1;
 	this->colorp2 = 2;
+	this->yangmenang = 1;
 }
 
 

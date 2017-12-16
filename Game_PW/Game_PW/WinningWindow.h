@@ -8,12 +8,17 @@ public:
 	~WinningWindow();
 
 	void BackToMainMenu(wxCommandEvent &event);
-
+	void WhoWin();
 
 private:
 	PWFrame *parent;
 	wxBitmap *mainmenu = nullptr;
 	wxBitmap *mainmenuglow = nullptr;
+
+	wxStaticBitmap *playerwin;
+	wxBitmap *player1win = nullptr;
+	wxBitmap *player2win = nullptr;
+	wxBitmap *playerdraw = nullptr;
 
 	wxBitmapButton *back;
 
