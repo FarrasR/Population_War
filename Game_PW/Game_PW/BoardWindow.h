@@ -29,7 +29,7 @@ public:
 	void RelocateAbility(wxCommandEvent &event);
 	void KillAbility(wxCommandEvent &event);
 	void ConvertAbility(wxCommandEvent &event);
-
+	void SkipAbility(wxCommandEvent &event);
 
 	//Func
 	void FirstPhase(Cell* cari);
@@ -94,6 +94,7 @@ private:
 	wxBitmapButton *buttonconvert;
 	wxBitmapButton *buttoncellcoba;
 	wxBitmapButton *buttongoplay;
+	wxBitmapButton *buttonskip;
 
 	bool First_Phase;
 	bool Bisa_Kill;

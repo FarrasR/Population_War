@@ -16,6 +16,7 @@ BEGIN_EVENT_TABLE(BoardWindow, wxWindow)
 	EVT_BUTTON(4004, BoardWindow::KillAbility)
 	EVT_BUTTON(4005, BoardWindow::ConvertAbility)
 	EVT_BUTTON(4006, BoardWindow::GoPlay)
+	EVT_BUTTON(4007, BoardWindow::SkipAbility)
 	EVT_BUTTON(4010, BoardWindow::Response)
 END_EVENT_TABLE()
 
@@ -34,6 +35,8 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	buttonrelocate = new wxBitmapButton(this, 4003, *relocate, wxPoint(780, 255), wxDefaultSize, wxBORDER_NONE);
 	buttonkill = new wxBitmapButton(this, 4004, *kill, wxPoint(780, 310), wxDefaultSize, wxBORDER_NONE);
 	buttonconvert = new wxBitmapButton(this, 4005, *convert, wxPoint(780, 365), wxDefaultSize, wxBORDER_NONE);
+	buttonskip=new wxBitmapButton(this, 4007, *convert, wxPoint(780, 420), wxDefaultSize, wxBORDER_NONE);
+
 	buttongoplay = new wxBitmapButton(this, 4006, *goplay, wxPoint(825, 470), wxDefaultSize, wxBORDER_NONE);
 	playerturn = new wxStaticBitmap(this, wxID_ANY, *player1turn, wxPoint(300, 15), wxDefaultSize, wxBORDER_NONE);
 	
@@ -42,8 +45,8 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	buttonrelocate->SetBitmapCurrent(*relocateglow);
 	buttonkill->SetBitmapCurrent(*killglow);
 	buttonconvert->SetBitmapCurrent(*convertglow);
+	buttonskip->SetBitmapCurrent(*convertglow);
 	buttongoplay->SetBitmapCurrent(*goplayglow);
-
 }
 
 
@@ -70,6 +73,7 @@ BoardWindow::~BoardWindow(){
 	delete buttonsacrifice;
 	delete buttonrelocate;
 	delete buttonkill;
+	delete buttonskip;
 	delete buttonconvert;
 	delete buttoncellcoba;
 	delete buttongoplay;
@@ -172,6 +176,8 @@ void BoardWindow::StartGame()
 	this->buttonconvert->Show(false);
 	this->buttonrelocate->Show(false);
 	this->buttongoplay->Show(false);
+	this->buttonskip->Show(false);
+
 
 	Current_Player = 1;
 	Count = 0;
@@ -210,6 +216,7 @@ void BoardWindow::StartSecondPhase()
 	else this->buttonconvert->Show(true);
 	if (parent->setting->relocate == false)this->buttonrelocate->Show(false);
 	else this->buttonrelocate->Show(true);
+	this->buttonskip->Show(true);
 }
 
 void BoardWindow::OnPaint(wxPaintEvent & event){
@@ -236,7 +243,7 @@ void BoardWindow::OnPaint(wxPaintEvent & event){
 void BoardWindow::BackToMainMenu(wxCommandEvent & event) {
 
 	wxString tempo;
-	tempo.Printf(wxT("You fokken sure mate? Progress won't be saved"));
+	tempo.Printf(wxT("Are you sure mate? Progress won't be saved."));
 	int ans = wxMessageBox(tempo, "Main Menu", wxYES_NO);
 	if (ans == wxYES)
 	{
@@ -289,6 +296,7 @@ void BoardWindow::Change_Player_Turn()
 		else this->buttonconvert->Show(true);
 		if (parent->setting->relocate == false)this->buttonrelocate->Show(false);
 		else this->buttonrelocate->Show(true);
+		this->buttonskip->Show(true);
 	}
 
 	if (this->Current_Player == 1) this->Current_Player = 2;
@@ -433,6 +441,7 @@ void BoardWindow::Kill(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+		this->buttonskip->Show(false);
 
 		this->Bisa_Kill = false;
 		this->Bisa_Relocate = false;
@@ -456,6 +465,7 @@ void BoardWindow::Convert(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+		this->buttonskip->Show(false);
 
 		this->Bisa_Kill = false;
 		this->Bisa_Relocate = false;
@@ -486,6 +496,7 @@ void BoardWindow::Sacrifice(Cell * cari)
 		this->buttonconvert->Show(false);
 		this->buttonrelocate->Show(false);
 		this->buttongoplay->Show(true);
+		this->buttonskip->Show(false);
 
 		this->Bisa_Kill = false;
 		this->Bisa_Relocate = false;
@@ -518,6 +529,7 @@ void BoardWindow::Relocate(Cell * cari)
 		this->Bisa_Convert = false;
 		this->Bisa_Sacrifice = false;
 
+		this->buttonskip->Show(false);
 		this->buttonkill->Show(false);
 		this->buttonsacrifice->Show(false);
 		this->buttonconvert->Show(false);
@@ -539,6 +551,7 @@ void BoardWindow::SacrificeAbility(wxCommandEvent & event) {
 	this->buttonsacrifice->Show(true);
 	this->buttonconvert->Show(false);
 	this->buttonrelocate->Show(false);
+	this->buttonskip->Show(false);
 	this->Sacrifice_Count = 0;
 	sacriflag = true;
 }
@@ -554,6 +567,7 @@ void BoardWindow::RelocateAbility(wxCommandEvent & event) {
 	this->buttonkill->Show(false);
 	this->buttonsacrifice->Show(false);
 	this->buttonconvert->Show(false);
+	this->buttonskip->Show(false);
 	this->buttonrelocate->Show(true);
 	this->Relocate_Count = 0;
 	reloflag = true;
@@ -565,6 +579,7 @@ void BoardWindow::KillAbility(wxCommandEvent & event) {
 	this->Bisa_Convert = false;
 	this->Bisa_Sacrifice = false;
 	this->buttonkill->Show(true);
+	this->buttonskip->Show(false);
 	this->buttonsacrifice->Show(false);
 	this->buttonconvert->Show(false);
 	this->buttonrelocate->Show(false);
@@ -577,9 +592,25 @@ void BoardWindow::ConvertAbility(wxCommandEvent & event) {
 	this->Bisa_Convert = true;
 	this->Bisa_Sacrifice = false;
 	this->buttonkill->Show(false);
+	this->buttonskip->Show(false);
 	this->buttonsacrifice->Show(false);
 	this->buttonconvert->Show(true);
 	this->buttonrelocate->Show(false);
+}
+
+void BoardWindow::SkipAbility(wxCommandEvent & event)
+{
+	this->Bisa_Kill = false;
+	this->Bisa_Relocate = false;
+	this->Bisa_Convert = false;
+	this->Bisa_Sacrifice = false;
+	this->buttonkill->Show(false);
+	this->buttonskip->Show(false);
+	this->buttonsacrifice->Show(false);
+	this->buttonconvert->Show(false);
+	this->buttonrelocate->Show(false);
+	this->buttongoplay->Show(true);
+	this->First_Phase = false;
 }
 
 void BoardWindow::LoadBitmap(){
