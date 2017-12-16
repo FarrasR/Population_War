@@ -35,7 +35,7 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	buttonrelocate = new wxBitmapButton(this, 4003, *relocate, wxPoint(780, 255), wxDefaultSize, wxBORDER_NONE);
 	buttonkill = new wxBitmapButton(this, 4004, *kill, wxPoint(780, 310), wxDefaultSize, wxBORDER_NONE);
 	buttonconvert = new wxBitmapButton(this, 4005, *convert, wxPoint(780, 365), wxDefaultSize, wxBORDER_NONE);
-	buttonskip=new wxBitmapButton(this, 4007, *convert, wxPoint(780, 420), wxDefaultSize, wxBORDER_NONE);
+	buttonskip=new wxBitmapButton(this, 4007, *skip, wxPoint(780, 420), wxDefaultSize, wxBORDER_NONE);
 
 	buttongoplay = new wxBitmapButton(this, 4006, *goplay, wxPoint(825, 470), wxDefaultSize, wxBORDER_NONE);
 	playerturn = new wxStaticBitmap(this, wxID_ANY, *player1turn, wxPoint(300, 15), wxDefaultSize, wxBORDER_NONE);
@@ -45,7 +45,7 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	buttonrelocate->SetBitmapCurrent(*relocateglow);
 	buttonkill->SetBitmapCurrent(*killglow);
 	buttonconvert->SetBitmapCurrent(*convertglow);
-	buttonskip->SetBitmapCurrent(*convertglow);
+	buttonskip->SetBitmapCurrent(*skipglow);
 	buttongoplay->SetBitmapCurrent(*goplayglow);
 }
 
@@ -63,6 +63,8 @@ BoardWindow::~BoardWindow(){
 	delete killglow;
 	delete convert;
 	delete convertglow;
+	delete skip;
+	delete skipglow;
 	delete player1turn;
 	delete player2turn;
 	delete score;
@@ -646,6 +648,10 @@ void BoardWindow::LoadBitmap(){
 	wxString fileLocation23 = wxFileName(fileLocation).GetPath() + wxT("\\gobutton.jpg");
 	wxString fileLocation24 = wxFileName(fileLocation).GetPath() + wxT("\\gobuttonglow.jpg");
 
+	wxString fileLocation25 = wxFileName(fileLocation).GetPath() + wxT("\\skipbutton.jpg");
+	wxString fileLocation26 = wxFileName(fileLocation).GetPath() + wxT("\\skipbuttonglow.jpg");
+
+
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
 	wxImage image3(fileLocation3, wxBITMAP_TYPE_JPEG);
@@ -670,6 +676,9 @@ void BoardWindow::LoadBitmap(){
 	wxImage image22(fileLocation22, wxBITMAP_TYPE_JPEG);
 	wxImage image23(fileLocation23, wxBITMAP_TYPE_JPEG);
 	wxImage image24(fileLocation24, wxBITMAP_TYPE_JPEG);
+
+	wxImage image25(fileLocation25, wxBITMAP_TYPE_JPEG);
+	wxImage image26(fileLocation26, wxBITMAP_TYPE_JPEG);
 
 	board = new wxBitmap(image1);
 	logo = new wxBitmap(image4.Scale(200, 200));
@@ -698,6 +707,8 @@ void BoardWindow::LoadBitmap(){
 	score = new wxBitmap(image22);
 	goplay = new wxBitmap(image23);
 	goplayglow = new wxBitmap(image24);
+	skip = new wxBitmap(image25);
+	skipglow = new wxBitmap(image26);
 }
 
 

@@ -64,7 +64,17 @@ SettingWindow::~SettingWindow()
 	delete abilitymenuglow;
 	delete cellmenu;
 	delete cellmenuglow;
+	delete abilitytext;
+	delete celltext;
+	delete cellbluecolor;
+	delete cellredcolor;
+	delete cellyellowcolor;
+	delete cellgreencolor;
+	delete nextcolor;
 
+	delete menutextstatic;
+	delete player1color;
+	delete player2color;
 	delete buttonkill;
 	delete buttonconvert;
 	delete buttonsacrifice;
@@ -72,6 +82,8 @@ SettingWindow::~SettingWindow()
 	delete buttonmainmenu;
 	delete buttonabilitymenu;
 	delete buttoncellmenu;
+	delete buttonnextcolor1;
+	delete buttonnextcolor2;
 }
 
 void SettingWindow::OnPaint(wxPaintEvent & event)

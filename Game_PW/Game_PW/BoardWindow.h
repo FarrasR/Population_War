@@ -85,6 +85,9 @@ private:
 	wxBitmap *score = nullptr;
 	wxBitmap *goplay = nullptr;
 	wxBitmap *goplayglow = nullptr;
+	wxBitmap *skip = nullptr;
+	wxBitmap *skipglow = nullptr;
+
 
 	wxStaticBitmap *playerturn;
 	wxBitmapButton *buttonmainmenu;

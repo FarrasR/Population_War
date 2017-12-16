@@ -30,16 +30,28 @@ HTPWindow::HTPWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY)
 
 HTPWindow::~HTPWindow()
 {
-	delete scrollnextbutton;
-	delete scrollprevbutton;
+	delete mainmenu;
+	delete mainmenuglow;
+	delete howtoplay;
 	delete scrollnext;
 	delete scrollprev;
 	delete scrollnextglow;
 	delete scrollprevglow;
+	delete htppage1;
+	delete htppage2;
+	delete htppage3;
+	delete htppage4;
+	delete htppage5;
+	delete htppage6;
+	delete htppage7;
+	delete htppage8;
+	delete htppage9;
+
+	delete htptextstatic;
 	delete back;
-	delete mainmenu;
-	delete mainmenuglow;
-	delete howtoplay;
+	delete scrollnextbutton;
+	delete scrollprevbutton;
+
 }
 
 void HTPWindow::OnPaint(wxPaintEvent & event)
