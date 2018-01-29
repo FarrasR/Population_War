@@ -30,7 +30,7 @@ BoardWindow::BoardWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY){
 	wxImage::AddHandler(gifLoader);
 	this->parent = parent;
 	this->LoadBitmap();
-	buttonmainmenu = new wxBitmapButton(this, 4001, *mainmenu, wxPoint(28, 200), wxDefaultSize, wxBORDER_NONE);
+	buttonmainmenu = new wxBitmapButton(this, 4001, *mainmenu, wxPoint(15, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonsacrifice = new wxBitmapButton(this, 4002, *sacrifice, wxPoint(780, 200), wxDefaultSize, wxBORDER_NONE);
 	buttonrelocate = new wxBitmapButton(this, 4003, *relocate, wxPoint(780, 255), wxDefaultSize, wxBORDER_NONE);
 	buttonkill = new wxBitmapButton(this, 4004, *kill, wxPoint(780, 310), wxDefaultSize, wxBORDER_NONE);
@@ -90,6 +90,7 @@ BoardWindow::~BoardWindow(){
 
 void BoardWindow::StartGame()
 {
+	playerturn->SetBitmap(*player1turn);
 	this->JumlahCellp1 = 0;
 	this->JumlahCellp2 = 0;
 	wxStandardPaths &stdPaths = wxStandardPaths::Get();
@@ -177,6 +178,71 @@ void BoardWindow::StartGame()
 	cell02 = new wxBitmap(image6);
 
 
+	//bataaasss buat player 1 2 color
+
+	wxString fileLocation7;
+	wxString fileLocation8;
+	wxString fileLocation9;
+	wxString fileLocation10;
+
+	if (parent->setting->colorp1 == 1) {
+		fileLocation7 = wxFileName(fileLocation).GetPath() + wxT("\\player1blue.jpg");
+		fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\charblue.jpg");
+	}
+	else if (parent->setting->colorp1 == 2) {
+		fileLocation7 = wxFileName(fileLocation).GetPath() + wxT("\\player1red.jpg");
+		fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\charred.jpg");
+	}
+	else if (parent->setting->colorp1 == 3) {
+		fileLocation7 = wxFileName(fileLocation).GetPath() + wxT("\\player1yellow.jpg");
+		fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\charyellow.jpg");
+	}
+	else if (parent->setting->colorp1 == 4) {
+		fileLocation1 = wxFileName(fileLocation).GetPath() + wxT("\\player1green.jpg");
+		fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\chargreen.jpg");
+	}
+
+	if (parent->setting->colorp2 == 1) {
+		fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\player2blue.jpg");
+		fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\charblue.jpg");
+	}
+	else if (parent->setting->colorp2 == 2) {
+		fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\player2red.jpg");
+		fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\charred.jpg");
+	}
+	else if (parent->setting->colorp2 == 3) {
+		fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\player2yellow.jpg");
+		fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\charyellow.jpg");
+	}
+	else if (parent->setting->colorp2 == 4) {
+		fileLocation8 = wxFileName(fileLocation).GetPath() + wxT("\\player2green.jpg");
+		fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\chargreen.jpg");
+	}
+
+	wxImage image7(fileLocation7, wxBITMAP_TYPE_JPEG);
+	wxImage image8(fileLocation8, wxBITMAP_TYPE_JPEG);
+	wxImage image9(fileLocation9, wxBITMAP_TYPE_JPEG);
+	wxImage image10(fileLocation10, wxBITMAP_TYPE_JPEG);
+
+	delete p1color;
+	delete p2color;
+	delete p1char;
+	delete p2char;
+	delete player1static;
+	delete player2static;
+	delete playercharturn;
+
+	p1color = new wxBitmap(image7);
+	p2color = new wxBitmap(image8);
+	p1char = new wxBitmap(image9.Scale(175, 175));
+	p2char = new wxBitmap(image10.Scale(175, 175));
+
+	player1static = new wxStaticBitmap(this, wxID_ANY, *p1color, wxPoint(10, 310), wxDefaultSize, wxBORDER_NONE);
+	player2static = new wxStaticBitmap(this, wxID_ANY, *p2color, wxPoint(13, 360), wxDefaultSize, wxBORDER_NONE);
+	playercharturn = new wxStaticBitmap(this, wxID_ANY, *p1char, wxPoint(770, 15), wxDefaultSize, wxBORDER_NONE);
+
+	//bataaaaasss
+	
 	this->reloflag = false;
 	this->sacriflag = false;
 
@@ -232,7 +298,7 @@ void BoardWindow::OnPaint(wxPaintEvent & event){
 	wxPaintDC pdc(this);
 	pdc.DrawBitmap(*board, wxPoint(250, 120), true);
 	pdc.DrawBitmap(*logo, wxPoint(10, 10), true);
-	pdc.DrawBitmap(*score, wxPoint(15, 300), true);
+	pdc.DrawBitmap(*score, wxPoint(160, 300), true);
 	
 	wxClientDC dc1(this), dc2(this);
 
@@ -342,8 +408,15 @@ void BoardWindow::Change_Player_Turn()
 
 	if (this->Current_Player == 1) this->Current_Player = 2;
 	else this->Current_Player = 1;
-	if (this->Current_Player == 2) playerturn->SetBitmap(*player2turn);
-	else if (this->Current_Player == 1)playerturn->SetBitmap(*player1turn);
+
+	if (this->Current_Player == 2) {
+		playerturn->SetBitmap(*player2turn);
+		playercharturn->SetBitmap(*p2char);
+	}
+	else if (this->Current_Player == 1) {
+		playerturn->SetBitmap(*player1turn);
+		playercharturn->SetBitmap(*p1char);
+	}
 }
 
 
@@ -461,7 +534,7 @@ void BoardWindow::FirstPhase(Cell * cari)
 
 	if (Count == 5)
 	{
-		if (Total_Count == 10)StartSecondPhase();
+		if (Total_Count == 50)StartSecondPhase();
 		else
 		{
 			Change_Player_Turn();
@@ -686,10 +759,8 @@ void BoardWindow::LoadBitmap(){
 	wxString fileLocation22 = wxFileName(fileLocation).GetPath() + wxT("\\score.jpg");
 	wxString fileLocation23 = wxFileName(fileLocation).GetPath() + wxT("\\gobutton.jpg");
 	wxString fileLocation24 = wxFileName(fileLocation).GetPath() + wxT("\\gobuttonglow.jpg");
-
 	wxString fileLocation25 = wxFileName(fileLocation).GetPath() + wxT("\\skipbutton.jpg");
 	wxString fileLocation26 = wxFileName(fileLocation).GetPath() + wxT("\\skipbuttonglow.jpg");
-
 
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
@@ -721,8 +792,8 @@ void BoardWindow::LoadBitmap(){
 
 	board = new wxBitmap(image1);
 	logo = new wxBitmap(image4.Scale(200, 200));
-	mainmenu = new wxBitmap(image2.Scale(160, 60));
-	mainmenuglow = new wxBitmap(image3.Scale(160, 60));
+	mainmenu = new wxBitmap(image2);
+	mainmenuglow = new wxBitmap(image3);
 	
 	cell00 = new wxBitmap(image5);
 	cell11 = new wxBitmap(image6);

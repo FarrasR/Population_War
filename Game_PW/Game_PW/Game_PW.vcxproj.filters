@@ -45,6 +45,9 @@
     <ClCompile Include="CellTools.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WinningWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PWFrame.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CellTools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinningWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

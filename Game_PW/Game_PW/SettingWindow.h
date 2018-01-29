@@ -14,6 +14,7 @@ public:
 	void EnableConvert(wxCommandEvent& event);
 	void EnableSacrifice(wxCommandEvent& event);
 	void EnableRelocate(wxCommandEvent& event);
+	void EnableSound(wxCommandEvent& event);
 	void BackToMainMenu(wxCommandEvent &event);
 	void AbilityMenu(wxCommandEvent &event);
 	void CellMenu(wxCommandEvent &event);
@@ -39,11 +40,14 @@ private:
 	wxBitmap *cellredcolor = nullptr;
 	wxBitmap *cellyellowcolor = nullptr;
 	wxBitmap *cellgreencolor = nullptr;
-	wxBitmap *nextcolor = nullptr;
+	wxBitmap *nextcolor = nullptr;	
+	wxBitmap *soundon = nullptr;
+	wxBitmap *soundoff = nullptr;
 
 	wxStaticBitmap *menutextstatic;
 	wxStaticBitmap *player1color;
 	wxStaticBitmap *player2color;
+	wxBitmapButton *soundnow;
 	wxBitmapButton *buttonkill;
 	wxBitmapButton *buttonconvert;
 	wxBitmapButton *buttonsacrifice;
@@ -57,6 +61,7 @@ private:
 	void LoadBitmap();
 	void CheckSetting();
 
+	int soundhit = 0;
 	DECLARE_EVENT_TABLE()
 };
 

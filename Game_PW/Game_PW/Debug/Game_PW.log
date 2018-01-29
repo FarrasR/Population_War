@@ -1,12 +1,2 @@
-﻿  BoardWindow.cpp
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(259): warning C4390: ';': empty controlled statement found; is this the intent?
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(261): warning C4390: ';': empty controlled statement found; is this the intent?
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(283): warning C4018: '<': signed/unsigned mismatch
-f:\stuffs that might be useful\pbo\population_war\game_pw\game_pw\boardwindow.cpp(285): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Compiling...
-  PWFrame.cpp
-  Cell.cpp
-  Generating Code...
-  Game_PW.vcxproj -> F:\Stuffs that might be useful\PBO\Population_War\Game_PW\Debug\Game_PW.exe
-  Game_PW.vcxproj -> F:\Stuffs that might be useful\PBO\Population_War\Game_PW\Debug\Game_PW.pdb (Partial PDB)
+﻿  SettingWindow.cpp
+  Game_PW.vcxproj -> D:\Population_War\Game_PW\Debug\Game_PW.exe

@@ -5,6 +5,10 @@
 #include "CreditWindow.h"
 #include "BoardWindow.h"
 #include "WinningWindow.h"
+#include <windows.h>
+#include <mmsystem.h>
+#include <wx/stdpaths.h> 
+#include <wx/filename.h>
 
 PWFrame::PWFrame(const wxString &title) : wxFrame(NULL, wxID_ANY, title)
 {
@@ -48,6 +52,12 @@ void PWFrame::InitComponents()
 
 	SetSizer(boxSizer);
 	ShowMainWindow();
+
+	wxStandardPaths &stdPaths = wxStandardPaths::Get();
+	wxString fileLocation = stdPaths.GetExecutablePath();
+	wxString filelocation1 = wxFileName(fileLocation).GetPath() + wxT("\\test.wav");
+
+	PlaySound(filelocation1, NULL, SND_ASYNC);
 }
 
 void PWFrame::ShowMainWindow()

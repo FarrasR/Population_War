@@ -1,6 +1,6 @@
 #include "PWWindow.h" 
 #include <wx/stdpaths.h> 
-#include <wx/filename.h> 
+#include <wx/filename.h>
 
 BEGIN_EVENT_TABLE(PWWindow, wxWindow)
 	EVT_PAINT(PWWindow::OnPaint)
@@ -8,6 +8,7 @@ BEGIN_EVENT_TABLE(PWWindow, wxWindow)
 	EVT_BUTTON(1002, PWWindow::ClickSetting)
 	EVT_BUTTON(1003, PWWindow::ClickHTP)
 	EVT_BUTTON(1004, PWWindow::ClickCredit)
+	EVT_TIMER(1010, PWWindow::OnTimer)
 END_EVENT_TABLE()
 
 PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
@@ -27,6 +28,9 @@ PWWindow::PWWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY) {
 	button3->SetBitmapCurrent(*htpbuttonglow);
 	button2->SetBitmapCurrent(*settingbuttonglow);
 	button1->SetBitmapCurrent(*playbuttonglow);
+
+	timer = new wxTimer(this, 1010);
+	timer->Start(1000);
 }
 
 PWWindow::~PWWindow() {
@@ -44,6 +48,9 @@ PWWindow::~PWWindow() {
 	delete button2;
 	delete button3;
 	delete button4;
+
+	timer->Stop();
+	delete timer;
 }
 
 void PWWindow::LoadMainBitmap() {
@@ -58,6 +65,7 @@ void PWWindow::LoadMainBitmap() {
 	wxString fileLocation9 = wxFileName(fileLocation).GetPath() + wxT("\\settextglow.jpg");
 	wxString fileLocation10 = wxFileName(fileLocation).GetPath() + wxT("\\playglow.jpg");
 	wxString fileLocation11 = wxFileName(fileLocation).GetPath() + wxT("\\backgroundpw.jpg");
+	wxString fileLocation12 = wxFileName(fileLocation).GetPath() + wxT("\\backgroundpw2.jpg");
 	
 	wxImage image3(fileLocation3, wxBITMAP_TYPE_JPEG);
 	wxImage image4(fileLocation4, wxBITMAP_TYPE_JPEG);
@@ -68,6 +76,7 @@ void PWWindow::LoadMainBitmap() {
 	wxImage image9(fileLocation9, wxBITMAP_TYPE_JPEG);
 	wxImage image10(fileLocation10, wxBITMAP_TYPE_JPEG);
 	wxImage image11(fileLocation11, wxBITMAP_TYPE_JPEG);
+	wxImage image12(fileLocation12, wxBITMAP_TYPE_JPEG);
 
 	playbutton = new wxBitmap(image3);
 	playbuttonglow = new wxBitmap(image10);
@@ -78,11 +87,15 @@ void PWWindow::LoadMainBitmap() {
 	creditbutton = new wxBitmap(image6);
 	creditbuttonglow = new wxBitmap(image7);
 	newbackground = new wxBitmap(image11);
+	newbackground2 = new wxBitmap(image12);
 }
 
 void PWWindow::OnPaint(wxPaintEvent &event) {
 	wxPaintDC pdc(this);
-	pdc.DrawBitmap(*newbackground, wxPoint(-10, 0), true);
+	if(hit == 0)
+		pdc.DrawBitmap(*newbackground, wxPoint(-10, 0), true);
+	else
+		pdc.DrawBitmap(*newbackground2, wxPoint(-10, 0), true);
 }
 
 void PWWindow::ClickPlay(wxCommandEvent & event){
@@ -102,4 +115,12 @@ void PWWindow::ClickHTP(wxCommandEvent & event)
 void PWWindow::ClickCredit(wxCommandEvent & event)
 {
 	parent->ShowCreditWindow();
+}
+
+void PWWindow::OnTimer(wxTimerEvent & event)
+{
+	if (this->hit == 0) this->hit = 1;
+	else this->hit = 0;
+
+	Refresh();
 }

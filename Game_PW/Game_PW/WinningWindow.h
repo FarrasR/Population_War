@@ -14,7 +14,12 @@ private:
 	PWFrame *parent;
 	wxBitmap *mainmenu = nullptr;
 	wxBitmap *mainmenuglow = nullptr;
+	wxBitmap *p1char = nullptr;
+	wxBitmap *p2char = nullptr;
+	wxBitmap *congrats = nullptr;
 
+	wxStaticBitmap *congratsstatic;
+	wxStaticBitmap *playercharwin;
 	wxStaticBitmap *playerwin;
 	wxBitmap *player1win = nullptr;
 	wxBitmap *player2win = nullptr;

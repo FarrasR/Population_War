@@ -5,6 +5,7 @@
 #include <wx/arrimpl.cpp>
 #include <wx/dynarray.h>
 #include <wx/dcbuffer.h>
+#include <wx/sound.h>
 #include <vector>
 #include "CellTools.h"
 using namespace std;
@@ -87,9 +88,15 @@ private:
 	wxBitmap *goplayglow = nullptr;
 	wxBitmap *skip = nullptr;
 	wxBitmap *skipglow = nullptr;
-
+	wxBitmap *p1color = nullptr;
+	wxBitmap *p2color = nullptr;
+	wxBitmap *p1char = nullptr;
+	wxBitmap *p2char = nullptr;
 
 	wxStaticBitmap *playerturn;
+	wxStaticBitmap *playercharturn;
+	wxStaticBitmap *player1static;
+	wxStaticBitmap *player2static;
 	wxBitmapButton *buttonmainmenu;
 	wxBitmapButton *buttonsacrifice;
 	wxBitmapButton *buttonrelocate;

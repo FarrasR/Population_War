@@ -13,6 +13,7 @@ BEGIN_EVENT_TABLE(SettingWindow, wxWindow)
 	EVT_BUTTON(2007, SettingWindow::CellMenu)
 	EVT_BUTTON(2008, SettingWindow::NextColor1)
 	EVT_BUTTON(2009, SettingWindow::NextColor2)
+	EVT_BUTTON(2010, SettingWindow::EnableSound)
 END_EVENT_TABLE()
 
 
@@ -35,6 +36,7 @@ SettingWindow::SettingWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY)
 	
 	buttonnextcolor1 = new wxBitmapButton(this, 2008, *nextcolor, wxPoint(357, 259), wxDefaultSize, wxBORDER_NONE);
 	buttonnextcolor2 = new wxBitmapButton(this, 2009, *nextcolor, wxPoint(357, 348), wxDefaultSize, wxBORDER_NONE);
+	
 	player1color = new wxStaticBitmap(this, wxID_ANY, *cellbluecolor, wxPoint(295, 258), wxDefaultSize, wxBORDER_NONE);
 	player2color = new wxStaticBitmap(this, wxID_ANY, *cellredcolor, wxPoint(295, 344), wxDefaultSize, wxBORDER_NONE);
 
@@ -44,6 +46,8 @@ SettingWindow::SettingWindow(PWFrame *parent) : wxWindow(parent, wxID_ANY)
 	buttonabilitymenu->SetBitmapCurrent(*abilitymenuglow);
 	buttoncellmenu = new wxBitmapButton(this, 2007, *cellmenu, wxPoint(275, 120), wxDefaultSize, wxBORDER_NONE);
 	buttoncellmenu->SetBitmapCurrent(*cellmenuglow);
+	
+	soundnow = new wxBitmapButton(this, 2010, *soundon, wxPoint(150, 500), wxDefaultSize, wxBORDER_NONE);
 
 	buttonnextcolor1->Show(false);
 	buttonnextcolor2->Show(false);
@@ -112,6 +116,25 @@ void SettingWindow::EnableRelocate(wxCommandEvent & event)
 	if (parent->setting->relocate == true)parent->setting->relocate = false;
 	else parent->setting->relocate = true;
 	this->CheckSetting();
+}
+
+void SettingWindow::EnableSound(wxCommandEvent & event)
+{
+	if (soundhit == 1) {
+
+		wxStandardPaths &stdPaths = wxStandardPaths::Get();
+		wxString fileLocation = stdPaths.GetExecutablePath();
+		wxString filelocation1 = wxFileName(fileLocation).GetPath() + wxT("\\test.wav");
+
+		soundhit = 0;
+		PlaySound(filelocation1, NULL, SND_ASYNC);
+		soundnow->SetBitmap(*soundon);
+	}
+	else if (soundhit == 0) {
+		soundhit = 1;
+		PlaySound(0,0,0);
+		soundnow->SetBitmap(*soundoff);
+	}
 }
 
 void SettingWindow::EnableConvert(wxCommandEvent & event)
@@ -199,6 +222,8 @@ void SettingWindow::LoadBitmap()
 	wxString fileLocation15 = wxFileName(fileLocation).GetPath() + wxT("\\yellowcolorcell.jpg");
 	wxString fileLocation16 = wxFileName(fileLocation).GetPath() + wxT("\\greencolorcell.jpg");
 	wxString fileLocation17 = wxFileName(fileLocation).GetPath() + wxT("\\nextcolor.jpg");
+	wxString fileLocation18 = wxFileName(fileLocation).GetPath() + wxT("\\soundon.jpg");
+	wxString fileLocation19 = wxFileName(fileLocation).GetPath() + wxT("\\soundoff.jpg");
 
 	wxImage image1(fileLocation1, wxBITMAP_TYPE_JPEG);
 	wxImage image2(fileLocation2, wxBITMAP_TYPE_JPEG);
@@ -217,6 +242,8 @@ void SettingWindow::LoadBitmap()
 	wxImage image15(fileLocation15, wxBITMAP_TYPE_JPEG);
 	wxImage image16(fileLocation16, wxBITMAP_TYPE_JPEG);
 	wxImage image17(fileLocation17, wxBITMAP_TYPE_JPEG);
+	wxImage image18(fileLocation18, wxBITMAP_TYPE_JPEG);
+	wxImage image19(fileLocation19, wxBITMAP_TYPE_JPEG);
 
 	settingbox = new wxBitmap(image1);
 	checkboxfalse = new wxBitmap(image2);
@@ -235,6 +262,8 @@ void SettingWindow::LoadBitmap()
 	cellyellowcolor = new wxBitmap(image15);
 	cellgreencolor = new wxBitmap(image16);
 	nextcolor = new wxBitmap(image17);
+	soundon = new wxBitmap(image18);
+	soundoff = new wxBitmap(image19);
 }
 
 void SettingWindow::CheckSetting()

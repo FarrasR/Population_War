@@ -12,6 +12,7 @@ public:
 	void ClickSetting(wxCommandEvent &event);
 	void ClickHTP(wxCommandEvent &event);
 	void ClickCredit(wxCommandEvent &event);
+	void OnTimer(wxTimerEvent &event);
 
 private:
 	wxBitmap *playbutton = nullptr;
@@ -23,6 +24,7 @@ private:
 	wxBitmap *htpbuttonglow = nullptr;
 	wxBitmap *creditbuttonglow = nullptr;
 	wxBitmap *newbackground = nullptr;
+	wxBitmap *newbackground2 = nullptr;
 
 	wxBitmapButton *button1;
 	wxBitmapButton *button2;
@@ -30,7 +32,10 @@ private:
 	wxBitmapButton *button4;
 
 	PWFrame *parent;
+	wxTimer *timer;
 
 	void LoadMainBitmap();
 	DECLARE_EVENT_TABLE()
+
+	int hit = 0;
 };
